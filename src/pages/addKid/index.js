@@ -19,7 +19,7 @@ function App() {
     
     if(code && name && rate && birth && parent && note){
       await Axios.post(
-        '/createKid',
+        '/createdKid',
         {treatment, code, name, rate, birth, parent, note},
       
         window.alert('Cadastrado')
