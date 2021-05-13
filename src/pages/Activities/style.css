@@ -1,0 +1,64 @@
+.App{
+    width: 100%;
+    resize: both;
+}
+  
+.App-header{
+    width: 100%;
+    resize: both;
+}
+
+.backgroud-Activities {
+    width: 100%;
+    width: 75%px;
+    height: 700px;
+    margin: auto;
+    background: rgb(31, 178, 197);
+    padding: 20px;
+    resize: both;
+}
+
+.form-Activities {
+    width: 60%;
+    width: 900px;
+    height: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    resize: both;
+}
+
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+    resize: both;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.table-responsive-sm{
+    margin-right: 25%;
+    margin-top: 4%; 
+    resize: both;
+}
+
+.tr {
+    cursor: pointer;
+}
+
+.form-group-vinc{
+    margin-top: 4%;
+}
