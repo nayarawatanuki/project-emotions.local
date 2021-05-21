@@ -23,12 +23,12 @@ function App() {
 
                             <h1>Por onde voce quer começar?</h1>
                         
-                            <Link to="/Criancas">
+                            <Link to="/Kids">
                                 <button type="submit" class="btn-kid btn-primary btn-lg btn-block float-center">Crianças</button>
                             </Link>
                             
                             
-                            <Link to="/Atividades">
+                            <Link to="/Activities">
                                 <button type="submit" class="btn-act btn-primary btn-lg btn-block float-center">Atividades</button>
                             </Link>
                             

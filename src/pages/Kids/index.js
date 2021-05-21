@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
 //import bootstrap from 'bootstrap'
@@ -15,14 +15,16 @@ function App() {
         });
     },[]);
 
-    async function deleteKid(event){
-        event.preventDefault();
+    function deleteKid(id){
+        console.log('id delete', id);
         Axios.delete('http://localhost:3000/deletedKid', 
             { id }
         )
         .then((response) => {
-            response.status("Apagado!")
-          });
+            console.log(response);
+            window.alert("Apagado!")
+          })
+          .catch(()=>{});
     }
 
   
@@ -50,7 +52,7 @@ function App() {
                             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
                             Crianças
                         </div>
-                        <Link to="/addCrianca">
+                        <Link to="/addKid">
                             <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 ">+</button>
                         </Link>
                         <div class="form-group-tb">
@@ -70,21 +72,31 @@ function App() {
                                         </tr>
                                     </thead>
 
-                                    {list.map((val) => {
+                                    {list.map((kid) => {
                                     return (
                                         //<CardCrianca val={val} handleDeletar={handleDeletar}/>
                                             
                                         <tbody>
                                             <tr class="tr">
-                                                <td><input type="checkbox" onclick="{(e)=>{setId(e.target.id)}}"/></td>
-                                                <td id="id">{val.id}</td>
-                                                <td>{val.treatment} </td>
-                                                <td>{val.code} </td>
-                                                <td>{val.name} </td>
-                                                <td>{val.rate} </td>
-                                                <td>{val.birth} </td>
-                                                <td>{val.parent} </td>
-                                                <td>{val.note} </td>
+                                                <td><input type="checkbox"/></td>
+                                                <td>{kid.id}</td>
+                                                <td>{kid.treatment} </td>
+                                                <td>{kid.code} </td>
+                                                <td>{kid.name} </td>
+                                                <td>{kid.rate} </td>
+                                                <td>{kid.birth} </td>
+                                                <td>{kid.parent} </td>
+                                                <td>{kid.note} </td>
+                                                <td>
+                                                    <Link to="/">
+                                                        <button class="btn btn-sm btn-success d-inline-block mr-1">
+                                                            <i class="fas fa-edit"></i>                
+                                                        </button>
+                                                    </Link>
+                                                    <button class="btn btn-sm btn-danger d-inline-block" onClick={() => deleteKid(kid.id)}>
+                                                        <i class="fas fa-trash-alt"></i>               
+                                                    </button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     )
@@ -94,18 +106,6 @@ function App() {
                             
                             </div>
                         </div>
-                        
-                        
-                        <div class="form-group-btn">
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <Link>
-                                        <button  class="btn btn-primary mr-sm-2" type="submit">Editar</button>
-                                    </Link>
-                                    <button class="btn btn-danger" type="submit" onClick={deleteKid}>Excluir</button>
-                                </div>
-                            </div> 
-                        </div>   
                     </form>
                 </div>
             </body>

@@ -54,18 +54,24 @@ app.post('/createdKid', (req, res) => {
 app.delete('/deletedKid', (req, res) => {
     const Kid = require('./src/models/Kid');
 
-    const { id } = req.params;
+    const { id } = req.body;
+    console.log(id);
 
-    const kid = Kid.destroy({ 
-        where: {
-            id: id
+    const kid = Kid.destroy(
+        { id },
+        (err, result) => {
+            if (err) {
+              console.log(err);
+            } else {
+              res.send("deletado!");
+            }
         } 
-    });
+    );
 
     return res.json(kid);
 })
 
-app.get("/activities", (req, res) => {
+app.get("/Activities", (req, res) => {
     const Activities = require('./src/models/Activity');
 
     const activities = Activities.findAll()

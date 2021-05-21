@@ -1,35 +1,14 @@
 .App{
-    width: 100%;
-    resize: both;
+    width: auto;
+    height: auto;
+    resize: auto;
+}
+
+.App-header{
+    width: auto;
+    resize: auto;
 }
   
-.App-header{
-    width: 100%;
-    resize: both;
-}
-
-.backgroud-Activities {
-    width: 100%;
-    width: 75%px;
-    height: 700px;
-    margin: auto;
-    background: rgb(31, 178, 197);
-    padding: 20px;
-    resize: both;
-}
-
-.form-Activities {
-    width: 60%;
-    width: 900px;
-    height: 600px;
-    margin: auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    resize: both;
-}
-
 .chip {
     display: inline-block;
     padding: 0 25px;
@@ -38,7 +17,7 @@
     line-height: 50px;
     border-radius: 25px;
     background-color: #f1f1f1;
-    resize: both;
+    resize: auto;
 }
 
 .chip img {
@@ -49,10 +28,34 @@
     border-radius: 50%;
 }
 
-.table-responsive-sm{
-    margin-right: 25%;
-    margin-top: 4%; 
+.backgroud-Activities {
+    max-width: auto;
+    height: 650px;
+    margin: auto;
     resize: both;
+    padding: 20px;
+    background-color: rgb(31, 178, 197);
+}
+
+.form-Activities {
+    width: auto;
+    height: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    resize: auto;
+}
+
+.form-group-tb{
+    text-align: center;
+    width: auto;
+    height: auto;
+    resize: auto;
+}
+
+.table-responsive {
+    overflow-x:auto;
 }
 
 .tr {
@@ -60,5 +63,5 @@
 }
 
 .form-group-vinc{
-    margin-top: 4%;
+    margin-top: 2%;
 }

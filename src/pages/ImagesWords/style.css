@@ -1,0 +1,37 @@
+.App{
+    width: 100%;
+    resize: both;
+  }
+  
+  .backgroud-addActivity {
+    width: 75%px;
+    height: 700px;
+    background: rgb(31, 178, 197);
+    padding: 20px;
+    resize: both;
+  }
+  
+  .form-addActivity {
+    width: 90%;
+    width: 700px;
+    height: 450px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    resize: both;
+  }
+  
+  .form-check {
+    width: 100%;
+    text-align: left;
+  }
+  
+  
+  .form-group-button {
+    width: 100%;
+    text-align: right;
+  }
+  
+  

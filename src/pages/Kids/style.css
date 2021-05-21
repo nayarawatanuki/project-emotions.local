@@ -1,10 +1,10 @@
-.App{
+.App {
   width: auto;
   height: auto;
   resize: auto;
 }
 
-.App-header{
+.App-header {
   width: auto;
   resize: auto;
 }
@@ -47,7 +47,7 @@
   resize: auto;
 }
 
-.form-group-tb{
+.form-group-tb {
   margin-top: 4%;
   text-align: center;
   width: auto;

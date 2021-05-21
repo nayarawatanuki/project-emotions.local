@@ -13,10 +13,10 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component = {Menu}/>
-      <Route exact path='/Criancas' component = {Kids}/>
-      <Route exact path='/Atividades' component = {Activities}/>
-      <Route exact path='/addCrianca' component = {addKid}/>
-      <Route exact path='/addAtividade' component = {addActivity}/>
+      <Route exact path='/Kids' component = {Kids}/>
+      <Route exact path='/Activities' component = {Activities}/>
+      <Route exact path='/addKid' component = {addKid}/>
+      <Route exact path='/addActivity' component = {addActivity}/>
     </Switch>
   </BrowserRouter>,
   /*<React.StrictMode>
