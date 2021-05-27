@@ -47,7 +47,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <nav class="navbar navbar-light bg-light">
-          <Link to="/Criancas">
+          <Link to="/Kids">
             <button type="button" class="btn btn-primary">Voltar</button>
           </Link>
           <h5 class="navbar-brand float-center" text-align="center">Adicionando Criança</h5>
@@ -111,7 +111,7 @@ function App() {
               </div>
 
               <div class="form-group-button">
-                <Link to="/Criancas">
+                <Link to="/Kids">
                   <button type="button" class="btn btn-primary">Cancelar</button>
                   <button  onClick ={create} Ontype="submit" class="btn btn-success">Adicionar</button>
                 </Link>

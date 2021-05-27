@@ -40,7 +40,7 @@ function App() {
            
             <header className="App-header">
                 <nav class="navbar navbar-light bg-light">
-                    <Link to="/Atividades">
+                    <Link to="/Activities">
                         <button type="button" class="btn btn-primary">Voltar</button>
                     </Link>
                     <h5 class="navbar-brand float-center" text-align="center">Adicionando Atividade</h5>
@@ -102,7 +102,7 @@ function App() {
                             </div>
                             
                             <div class="form-group-button">
-                                <Link to="/Atividades">
+                                <Link to="/Activities">
                                     <button type="button" class="btn btn-primary">Cancelar</button>
                                     <button  onClick ={create} Ontype="submit" class="btn btn-primary">Adicionar</button>
                                 </Link>

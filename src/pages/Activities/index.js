@@ -133,6 +133,12 @@ function App() {
                                             <i class="fas fa-sync"></i>
                                         </button>
                                     </Link>
+
+                                    <Link to="/ImagesWords">
+                                        <button type="submit" class="btn btn-outline-success d-inline-block" width="auto">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
