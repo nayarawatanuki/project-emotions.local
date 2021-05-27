@@ -33,16 +33,21 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const { id } = req.body;
+        const { id } = req.params;
 
-        console.log('controller delete criança', req.body, req.id)
-
-        const kid = await Kid.destroy({ 
-            where: {
-                id: id
-            } 
-        });
-
-        return res.json(kid);
+        console.log('controller delete criança', req.params)
+        try {
+            const kid = await Kid.destroy({ 
+                where: {
+                    id: id
+                } 
+            });
+    
+            return res.json(kid);
+        }catch(error){
+            console.log(error);
+                res.json({error: true});
+        }
+        
     }
 }

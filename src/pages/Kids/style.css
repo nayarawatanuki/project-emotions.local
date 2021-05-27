@@ -55,10 +55,19 @@
   resize: auto;
 }
 
-.tr {
+.tr:hover {
   cursor: pointer;
 }
 
 .form-group-btn{
   margin-top: 2%;
+}
+
+.input{
+  width: 100px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  cursor: default;
+  background-color: transparent;
 }

@@ -51,22 +51,17 @@ app.post('/createdKid', (req, res) => {
     
 })
 
-app.delete('/deletedKid', (req, res) => {
+app.delete('/deletedKid/:id', (req, res) => {
     const Kid = require('./src/models/Kid');
 
-    const { id } = req.body;
-    console.log(id);
+    const { id } = req.params;
+    console.log('controller delete criança', req.params);
 
-    const kid = Kid.destroy(
-        { id },
-        (err, result) => {
-            if (err) {
-              console.log(err);
-            } else {
-              res.send("deletado!");
-            }
-        } 
-    );
+    const kid = Kid.destroy({
+        where: {
+            id: id
+        }
+    });
 
     return res.json(kid);
 })
@@ -94,6 +89,21 @@ app.post('/createActivity', (req, res) => {
             }
         }
     );
+
+    return res.json(activity);
+})
+
+app.delete('/deletedActivity/:id', (req, res) => {
+    const Activity = require('./src/models/Activity');
+
+    const { id } = req.params;
+    console.log('controller delete atividade', req.params);
+
+    const activity = Activity.destroy({
+        where: {
+            id: id
+        }
+    });
 
     return res.json(activity);
 })

@@ -1,33 +1,38 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
-//import bootstrap from 'bootstrap'
 import './style.css';
 
 function App() {
 
     const [list, setList] = useState([]);
-    const[id, setId] = useState("");
-
+    const [id,setID] = useState([]);
+    
     useEffect(() => {
-        Axios.get('http://localhost:3000/Kids').then((response) => {
+        Axios.get('http://localhost:3000/Kids')
+        .then((response) => {
           setList(response.data)
         });
-    },[]);
+    },[list]);
 
-    function deleteKid(id){
-        console.log('id delete', id);
-        Axios.delete('http://localhost:3000/deletedKid', 
-            { id }
-        )
+    async function deleteKid(id){
+        console.log("id delete", id);
+
+        await Axios.delete(`http://localhost:3000/deletedKid/${id}`)
         .then((response) => {
-            console.log(response);
-            window.alert("Apagado!")
-          })
-          .catch(()=>{});
+            console.log(response.data);
+            window.alert("Criança apagada!");
+        })
+        .catch((error)=>{
+            console.log(error);
+        });
     }
 
-  
+    function inputs() {
+        document.getElementById("trows").style.backgroundColor = "#91e3ee";
+        document.getElementsByTagName("input").style = "cursor: text;"; //sem sucesso, input nao editavel tambem por conta de estar inserindo valores
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -57,10 +62,10 @@ function App() {
                         </Link>
                         <div class="form-group-tb">
                             <div class="form-row" text-align="center">
-                                <table class="table table-responsive table-selectable table-striped" float="auto">
+                                <table class="table table-responsive table-selectable " float="auto">
                                     <thead>
                                         <tr>
-                                            <th>Selecione</th>
+                                            <th></th>
                                             <th>id</th>
                                             <th>tratamento</th>
                                             <th>codigo</th>
@@ -69,48 +74,61 @@ function App() {
                                             <th>nascimento</th>
                                             <th>responsavel</th>
                                             <th>obs</th>
+                                            <th>ação</th>
                                         </tr>
                                     </thead>
 
                                     {list.map((kid) => {
                                     return (
-                                        //<CardCrianca val={val} handleDeletar={handleDeletar}/>
-                                            
                                         <tbody>
-                                            <tr class="tr">
-                                                <td><input type="checkbox"/></td>
-                                                <td>{kid.id}</td>
-                                                <td>{kid.treatment} </td>
-                                                <td>{kid.code} </td>
-                                                <td>{kid.name} </td>
-                                                <td>{kid.rate} </td>
-                                                <td>{kid.birth} </td>
-                                                <td>{kid.parent} </td>
-                                                <td>{kid.note} </td>
+                                            <tr id="trows" class="tr" padding="checkbox">
+                                                <td><input type="checkbox"></input></td>
+                                                <td class="fit-content">
+                                                    <input class="input" type="text" value={kid.id} onChange={(e) => setID(e.target.value)}/>
+                                                </td>
                                                 <td>
-                                                    <Link to="/">
-                                                        <button class="btn btn-sm btn-success d-inline-block mr-1">
-                                                            <i class="fas fa-edit"></i>                
-                                                        </button>
-                                                    </Link>
-                                                    <button class="btn btn-sm btn-danger d-inline-block" onClick={() => deleteKid(kid.id)}>
-                                                        <i class="fas fa-trash-alt"></i>               
+                                                    <input class="input" type="text" value={kid.treatment}/>
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.code}/> 
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.name}/> 
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.rate}/>
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.birth}/> 
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.parent}/>
+                                                </td>
+                                                <td>
+                                                    <input class="input" type="text" value={kid.note}/>
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-success d-inline-block mr-1" onClick={(e) => {e.preventDefault(); inputs()}}>
+                                                        <i class="fas fa-edit"></i>       
+                                                    </button>
+                                                    <button class="btn btn-sm btn-danger d-inline-block" onClick={(e) => {e.preventDefault(); deleteKid(kid.id)}}>
+                                                        <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    )
+                                    );
                                     })}
-                                
                                 </table>
-                            
+
+                                
                             </div>
                         </div>
                     </form>
                 </div>
             </body>
         </div>
-    )
+    );
 }
 
 export default App;

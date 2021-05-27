@@ -1,7 +1,6 @@
 import { useState, useEffect} from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
-//import bootstrap from 'bootstrap'
 import './style.css';
 
 function App() {
@@ -9,10 +8,11 @@ function App() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3000/Activities').then((response) => {
+        Axios.get('http://localhost:3000/Activities')
+        .then((response) => {
           setList(response.data)
         });
-    },[]);
+    },[list]);
 
     const [listKids, setListKids] = useState([]);
 
@@ -21,6 +21,19 @@ function App() {
           setListKids(response.data)
         });
     },[]);
+
+    async function deleteActivity(id){
+        console.log("id delete", id);
+
+        await Axios.delete(`http://localhost:3000/deletedActivity/${id}`)
+        .then((response) => {
+            console.log(response.data);
+            window.alert("Atividade apagada!");
+        })
+        .catch((error)=>{
+            console.log(error);
+        });
+    }
   
     return (
         <div className="App">
@@ -92,7 +105,7 @@ function App() {
                                                                 <i class="fas fa-edit"></i>                
                                                             </button>
                                                         </Link>
-                                                        <button class="btn btn-sm btn-danger d-inline-block">
+                                                        <button class="btn btn-sm btn-danger d-inline-block" onClick={(e) => {e.preventDefault(); deleteActivity(val.id)}}>
                                                             <i class="fas fa-trash-alt"></i>               
                                                         </button>
                                                     </td>
