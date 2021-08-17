@@ -17,7 +17,7 @@ function App() {
   async function create(event){
     event.preventDefault()
     
-    if(code && name && rate && birth && parent && note){
+    if(name && rate && birth && parent && note){
       await Axios.post(
         '/createdKid',
         {treatment, code, name, rate, birth, parent, note},
@@ -71,7 +71,7 @@ function App() {
               
               <div class="form-group">
                 <label htmlFor="code">Código de Acesso</label>
-                <input type="number" id="code" name="code" class="form-control" placeholder="Defina um código de acesso" onChange={(e)=>{setCode(e.target.value)}}/>
+                <input type="number" id="code" name="code" class="form-control" placeholder="Defina um código de acesso" value={parseInt(Math.random()*10000)} onChange={(e)=>{setCode(e.target.value)}}/>
               </div>
 
               <div class="form-group">

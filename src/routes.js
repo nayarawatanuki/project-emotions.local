@@ -8,11 +8,12 @@ const routes = express.Router();
 
 
 routes.get('/Kids', KidController.list);
-routes.post('/Kid', KidController.insert);
+routes.post('/createdKid', KidController.insert);
+routes.put('/updatedKid/:id', KidController.update);
 routes.delete('/deletedKid/:id', KidController.delete);
 
 routes.get('/Activities', ActivityController.list);
-routes.post('/Activity', ActivityController.insert);
+routes.post('/createdActivity', ActivityController.insert);
 routes.delete('/deletedActivity/:id', ActivityController.delete);
 
 module.exports = routes;

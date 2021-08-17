@@ -51,6 +51,27 @@ app.post('/createdKid', (req, res) => {
     
 })
 
+app.put('/updatedKid/:id', (req, res) => {
+    const Kid = require('./src/models/Kid');
+
+    const { id } = req.params;
+    const { treatment, code, name, rate, birth, parent, note } = req.body;
+
+    console.log('controller update criança', req.params, req.body);
+
+    const kid = Kid.update(
+
+        { treatment, code, name, rate, birth, parent, note },
+
+        {where: {
+            id: id
+        }}
+        
+    );
+
+    return res.json(kid);
+})
+
 app.delete('/deletedKid/:id', (req, res) => {
     const Kid = require('./src/models/Kid');
 
