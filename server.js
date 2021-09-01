@@ -13,6 +13,7 @@ app.use(routes);
 //const upload = require('multer')();
 
 const conn = require('mysql2');
+const Activity = require('./src/models/Activity');
     conn.createPool({
         user: "root",
         host: "localhost",
@@ -109,6 +110,27 @@ app.post('/createActivity', (req, res) => {
               res.send("Valores inseridos");
             }
         }
+    );
+
+    return res.json(activity);
+})
+
+app.put('/updatedActivity/:id', (req, res) => {
+    const Activity = require('./src/models/Activity');
+
+    const { id } = req.params;
+    const { name, type, emotion } = req.body;
+
+    console.log('controller update criança', req.params, req.body);
+
+    const activity = Activity.update(
+
+        { name, type, emotion },
+
+        {where: {
+            id: id
+        }}
+        
     );
 
     return res.json(activity);

@@ -3,26 +3,27 @@ import Axios from 'axios';
 import { Link } from 'react-router-dom'
 import './style.css';
 
+
 function App() {
 
     const [list, setList] = useState([]);
-    const [treatment, setTreatment] = useState("");
-    const [code,setCode] = useState("");
-    const [name,setName] = useState("");
-    const [rate,setRate] = useState("");
-    const [birth,setBirth] = useState("");
-    const [parent,setParent] = useState("");
-    const [note,setNote] = useState("");
-    const [i, setItemAtivo] = useState([]);
+
+    const [treatment, setTreatment] = useState();
+    const [code,setCode] = useState();
+    const [name,setName] = useState();
+    const [rate,setRate] = useState();
+    const [birth,setBirth] = useState();
+    const [parent,setParent] = useState();
+    const [note,setNote] = useState();
     
     useEffect(() => {
         Axios.get('http://localhost:3000/Kids')
         .then((response) => {
           setList(response.data)
         });
-    },[]);
+    },[list]);
 
-    async function updateKid(id){    //ainda sem sucesso, problema no reenderização do banco
+    async function updateKid(id){
 
         if(name !== "" && rate !== "" && birth !== "" && parent !== "" && note !== ""){
             await Axios.put(`http://localhost:3000/updatedKid/${id}`,
@@ -50,7 +51,6 @@ function App() {
 
     async function deleteKid(id){
         console.log("id delete", id);
-
         await Axios.delete(`http://localhost:3000/deletedKid/${id}`)
         .then((response) => {
             console.log(response.data);
@@ -61,9 +61,7 @@ function App() {
         });
     }
 
-
     function tagInputs() {
-
         //selecionando linha da tabela (meio gambiarra rs)
         document.getElementById("rows").style.backgroundColor = "#91e3ee";
 
@@ -75,6 +73,20 @@ function App() {
         document.getElementById("birth").removeAttribute("readonly");
         document.getElementById("parent").removeAttribute("readonly");
         document.getElementById("note").removeAttribute("readonly");
+    }
+
+    function tagInputs2() {
+        //selecionando linha da tabela (meio gambiarra rs)
+        document.getElementById("rows").style.backgroundColor = "##fff";
+
+        //REMOVENDO ATRIBUTO readOnly!!!!
+        document.getElementById("treatment").getAttribute("readOnly");
+        document.getElementById("code").getAttribute("readonly"); 
+        document.getElementById("name").getAttribute("readonly");
+        document.getElementById("rate").getAttribute("readonly");
+        document.getElementById("birth").getAttribute("readonly");
+        document.getElementById("parent").getAttribute("readonly");
+        document.getElementById("note").getAttribute("readonly");
     }
 
     return (
@@ -121,39 +133,81 @@ function App() {
                                             <th>ação</th>
                                         </tr>
                                     </thead>
-
+                                    
                                     {list.map((kid) => {
                                     return (
                                         <tbody>
                                             <tr id="rows" class="tr" padding="checkbox">
-                                                <td><input type="checkbox"></input></td>
+                                                <td><input type="checkbox"/></td>
                                                 <td class="fit-content">{kid.id}</td>
+                                                
                                                 <td>
-                                                    <input id="treatment" class="input" type="text" onClick={() => setItemAtivo(i)} defaultValue={kid.treatment} onChange={(e) => setTreatment(e.target.value)} readOnly/>
+                                                    <input id="treatment" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.treatment} 
+                                                    onChange={(e) => setTreatment(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="code" class="input" type="text" defaultValue={kid.code} onChange={(e) => setCode(e.target.value)} readOnly/> 
+                                                    <input id="code" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.code} 
+                                                    onChange={(e) => setCode(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="name" class="input" type="text" defaultValue={kid.name} onChange={(e) => setName(e.target.value)} readOnly/> 
+                                                    <input id="name" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.name} 
+                                                    onChange={(e) => setName(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="rate" class="input" type="text" defaultValue={kid.rate} onChange={(e) => setRate(e.target.value)} readOnly/>
+                                                    <input id="rate" 
+                                                    class="input" type="text" 
+                                                    defaultValue={kid.rate} 
+                                                    onChange={(e) => setRate(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="birth" class="input" type="text" defaultValue={kid.birth} onChange={(e) => setBirth(e.target.value)} readOnly/> 
+                                                    <input id="birth" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.birth} 
+                                                    onChange={(e) => setBirth(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="parent" class="input" type="text" defaultValue={kid.parent} onChange={(e) => setParent(e.target.value)} readOnly/>
+                                                    <input id="parent" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.parent} 
+                                                    onChange={(e) => setParent(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
-                                                    <input id="note" class="input" type="text" defaultValue={kid.note} onChange={(e) => setNote(e.target.value)} readOnly/>
+                                                    <input id="note" 
+                                                    class="input" 
+                                                    type="text" 
+                                                    defaultValue={kid.note} 
+                                                    onChange={(e) => setNote(e.target.value)} 
+                                                    readOnly/>
                                                 </td>
+
                                                 <td>
                                                     <button class="btn btn-sm btn-success d-inline-block mr-1" onClick={(e) => {e.preventDefault(); tagInputs()}}>
                                                         <i class="fas fa-edit"></i>       
                                                     </button>
-                                                    <button class="btn btn-sm btn-success d-inline-block mr-1" onClick ={(e) => {e.preventDefault(); updateKid(kid.id)}}>
+                                                    <button class="btn btn-sm btn-success d-inline-block mr-1" onClick ={(e) => {e.preventDefault(); updateKid(kid.id); tagInputs2()}}>
                                                         <i class="fas fa-save"></i>       
                                                     </button>
                                                     <button class="btn btn-sm btn-danger d-inline-block" onClick={(e) => {e.preventDefault(); deleteKid(kid.id)}}>
@@ -164,10 +218,8 @@ function App() {
                                         </tbody>
                                     );
                                     })}
-                                </table>
-
-                                
-                            </div>
+                                </table>          
+                           </div>
                         </div>
                     </form>
                 </div>

@@ -14,6 +14,7 @@ routes.delete('/deletedKid/:id', KidController.delete);
 
 routes.get('/Activities', ActivityController.list);
 routes.post('/createdActivity', ActivityController.insert);
+routes.put('/updatedKid/:id', KidController.update);
 routes.delete('/deletedActivity/:id', ActivityController.delete);
 
 module.exports = routes;
