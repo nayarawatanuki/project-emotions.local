@@ -11,7 +11,7 @@ function App() {
 
     useEffect(() => {
         Axios.get('http://localhost:3000/Activities')
-        .then((response) => {
+        .then((response) => {}
           setList(response.data)
         });
     },[]);
