@@ -1,6 +1,7 @@
-import { useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
+import ActivityRow from './ActivityRow'
 import './style.css';
 
 function App() {
@@ -8,16 +9,12 @@ function App() {
     const [list, setList] = useState([]);
     const [listKids, setListKids] = useState([]);
 
-    const [name,setName] = useState();
-    const [type,setType] = useState();
-    const [emotion,setEmotion] = useState();
-
     useEffect(() => {
         Axios.get('http://localhost:3000/Activities')
         .then((response) => {
           setList(response.data)
         });
-    },[list]);
+    },[]);
 
     useEffect(() => {
         Axios.get('http://localhost:3000/Kids').then((response) => {
@@ -25,7 +22,7 @@ function App() {
         });
     },[]);
 
-    async function updateKid(id){ 
+    async function updateActivity({id, name, type, emotion}){ 
 
         if(name !== "" && type !== "" && emotion !== ""){
             await Axios.put(`http://localhost:3000/updatedActivity/${id}`,
@@ -54,6 +51,9 @@ function App() {
         .then((response) => {
             console.log(response.data);
             window.alert("Atividade apagada!");
+
+            const newList = list.filter((activity) => activity.id !== id);
+            setList(newList);
         })
         .catch((error)=>{
             console.log(error);
@@ -113,56 +113,23 @@ function App() {
                                             <th>ação</th>
                                         </tr>
                                     </thead>
-                                    {list.map((act) => {
-                                        return (   
-                                            <tbody>
-                                                <tr id="rows" class="tr" padding="checkbox">
-                                                    <td><input type="checkbox"/></td>
-                                                    <td class="fit-content">{act.id}</td>
-                                                    
-                                                    <td>
-                                                        <input id="name" 
-                                                        class="input" 
-                                                        type="text" 
-                                                        defaultValue={act.name} 
-                                                        onChange={(e) => setName(e.target.value)}/>
-                                                    </td>
 
-                                                    <td><input id="type" 
-                                                        class="input" 
-                                                        type="text" 
-                                                        defaultValue={act.type} 
-                                                        onChange={(e) => setType(e.target.value)}/>
-                                                    </td>
-                                                    
-                                                    <td><input id="emotion" 
-                                                        class="input" 
-                                                        type="text" 
-                                                        defaultValue={act.emotion} 
-                                                        onChange={(e) => setEmotion(e.target.value)}/>
-                                                    </td>
-                                                    
-                                                    <td>
-                                                        <button class="btn btn-sm btn-success d-inline-block mr-1">
-                                                            <i class="fas fa-edit"></i>                
-                                                        </button>
-
-                                                        <button class="btn btn-sm btn-success d-inline-block mr-1" onClick ={(e) => {e.preventDefault(); updateKid(act.id)}}>
-                                                            <i class="fas fa-save"></i>       
-                                                        </button>
-                                                        
-                                                        <button class="btn btn-sm btn-danger d-inline-block" onClick={(e) => {e.preventDefault(); deleteActivity(act.id)}}>
-                                                            <i class="fas fa-trash-alt"></i>               
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        );
-                                    })}
+                                    <tbody>
+                                        {list.map((activity) => {
+                                            return (   
+                                                <ActivityRow 
+                                                    activity={activity} 
+                                                    updateActivity={updateActivity} 
+                                                    deleteActivity={deleteActivity} 
+                                                />
+                                            );
+                                        })}
+                                    </tbody>
                                 </table>                                
                             </div>
                         </div>
                         
+
                         <div class="form-group-vinc">
                             <div class="form-group">
                                 <label htmlFor="kids">Criança:</label>
