@@ -8,11 +8,11 @@ function App() {
     const [list, setList] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3000/Kids')
+        Axios.get('http://localhost:3000/listKids')
         .then((response) => {
           setList(response.data)
         });
-    },[]);
+    }, []);
 
     async function updateKid({
         id,
@@ -110,11 +110,14 @@ function App() {
                                     </thead>
                                     
                                     <tbody>
-                                    {list.map((kid) => {
-                                        return (
-                                            <KidRow kid={kid} updateKid={updateKid} deleteKid={deleteKid} />
-                                        );
-                                    })}
+                                        {list.map((kid) => {
+                                            return (
+                                                <KidRow kid={kid} 
+                                                        updateKid={updateKid} 
+                                                        deleteKid={deleteKid} 
+                                                    />
+                                            );
+                                        })}
                                     </tbody>
                                 </table>          
                            </div>

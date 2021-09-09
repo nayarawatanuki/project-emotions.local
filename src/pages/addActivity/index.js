@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import Axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './style.css';
 
 function App() {
-    
+    const history = useHistory();
+
     const [name,setName] = useState("");
     const [type,setType] = useState("");
     const [emotion,setEmotion] = useState("");
 
 
-    async function create(event){
-        event.preventDefault();
-    
-        if(name && type && emotion){
+    async function create(){    
+        if(!name || !type || !emotion){
+            window.alert('Prencha todos os campos')
+        }
+
         await Axios.post(
-            '/createActivity',
+            '/createdActivity',
             {name, type, emotion},
             
             window.alert('Cadastrado')
@@ -28,12 +30,14 @@ function App() {
             })),
             console.log("Enviado!")
         );
-
-        }else{
-        window.alert('Prencha todos os campos')
-        }
-
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await create(); 
+    
+        history.push('/Activities')
+      }
 
     return (
         <div className="App">
@@ -104,8 +108,9 @@ function App() {
                             <div class="form-group-button">
                                 <Link to="/Activities">
                                     <button type="button" class="btn btn-primary">Cancelar</button>
-                                    <button  onClick ={create} Ontype="submit" class="btn btn-primary">Adicionar</button>
                                 </Link>
+
+                                <button  onClick ={handleSubmit} Ontype="submit" class="btn btn-success">Adicionar</button>
                             </div>
 
                         </div>

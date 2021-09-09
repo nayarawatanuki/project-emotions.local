@@ -13,7 +13,6 @@ app.use(routes);
 //const upload = require('multer')();
 
 const conn = require('mysql2');
-const Activity = require('./src/models/Activity');
     conn.createPool({
         user: "root",
         host: "localhost",
@@ -22,7 +21,7 @@ const Activity = require('./src/models/Activity');
     }
 );
 
-app.get("/kids", (req, res) => {
+app.get("/listKids", (req, res) => {
     
     const Kids = require('./src/models/Kid');
 
@@ -88,7 +87,7 @@ app.delete('/deletedKid/:id', (req, res) => {
     return res.json(kid);
 })
 
-app.get("/Activities", (req, res) => {
+app.get("/listActivities", (req, res) => {
     const Activities = require('./src/models/Activity');
 
     const activities = Activities.findAll()

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import './style.css';
 
 function App() {
+  const history = useHistory();
 
   const [treatment, setTreatment] = useState("");
   const [code,setCode] = useState("");
@@ -13,35 +14,37 @@ function App() {
   const [parent,setParent] = useState("");
   const [note,setNote] = useState("");
 
-
-  async function create(event){
-    event.preventDefault()
-    
-    if(name && rate && birth && parent && note){
-      await Axios.post(
-        '/createdKid',
-        {treatment, code, name, rate, birth, parent, note},
-      
-        window.alert('Cadastrado')
-      )
-      .then(response => 
-        console.log(JSON.stringify({
-          "tratamento": treatment,
-          "codigo": code,
-          "nome": name, 
-          "grau": rate,
-          "data de nascimento": birth,
-          "responsavel": parent,
-          "observações": note
-        })),
-        console.log("Enviado!")
-      );
-    }else{
+  async function create() {    
+    if(!name || !rate  || !birth  || !parent  || !note) {
       window.alert('Prencha todos os campos')
     }
+      
+    await Axios.post(
+      '/createdKid',
+      {treatment, code, name, rate, birth, parent, note},
     
+      window.alert('Cadastrado')
+    )
+    .then(response => 
+      console.log(JSON.stringify({
+        "tratamento": treatment,
+        "codigo": code,
+        "nome": name, 
+        "grau": rate,
+        "data de nascimento": birth,
+        "responsavel": parent,
+        "observações": note
+      })),
+      console.log("Enviado!")
+    );
   }
-  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await create(); 
+
+    history.push('/Kids')
+  }
 
   return (
     <div className="App">
@@ -113,8 +116,10 @@ function App() {
               <div class="form-group-button">
                 <Link to="/Kids">
                   <button type="button" class="btn btn-primary">Cancelar</button>
-                  <button  onClick ={create} Ontype="submit" class="btn btn-success">Adicionar</button>
                 </Link>
+
+                <button  onClick ={handleSubmit} Ontype="submit" class="btn btn-success">Adicionar</button>
+                
               </div>
 
             </div>

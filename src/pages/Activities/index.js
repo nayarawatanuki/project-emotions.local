@@ -10,14 +10,15 @@ function App() {
     const [listKids, setListKids] = useState([]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3000/Activities')
-        .then((response) => {}
+        Axios.get('http://localhost:3000/listActivities')
+        .then((response) => {
           setList(response.data)
         });
     },[]);
 
     useEffect(() => {
-        Axios.get('http://localhost:3000/Kids').then((response) => {
+        Axios.get('http://localhost:3000/listKids')
+        .then((response) => {
           setListKids(response.data)
         });
     },[]);
