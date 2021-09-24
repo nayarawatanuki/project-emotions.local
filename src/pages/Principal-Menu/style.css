@@ -1,0 +1,36 @@
+.App{
+    width: 100%;
+    resize: both;
+  }
+    
+  .backgroud-menu {
+    width: 75%px;
+    height: 700px;
+    background: rgb(31, 178, 197);
+    padding: 20px;
+    resize: both;
+  }
+  
+  .form-menu {
+    width: 90%;
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    margin-top: 5%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    resize: both;
+  }
+  
+  .btn-kid{
+    margin-top: 20%;
+  }
+  
+  .btn-act{
+    margin-top: 5%;
+  }
+  
+    
+    
