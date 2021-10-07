@@ -68,32 +68,32 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <nav class="navbar navbar-light bg-light">
+                <nav className="navbar navbar-light bg-light">
                     <Link to="/">
-                        <button type="button" class="btn btn-primary">Voltar</button>
+                        <button type="button" className="btn btn-primary">Voltar</button>
                     </Link>
-                    <h5 class="navbar-brand float-center">Crianças</h5>
+                    <h5 className="navbar-brand float-center">Crianças</h5>
                     <h1> </h1>
                 </nav>
             </header>
         
-            <body>
+            
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" ></script>
 
-                <div class="backgroud-Kids float-center">
+                <div className="backgroud-Kids float-center">
 
-                    <form class="form-Kids fit-content">
-                        <div class="chip">
+                    <form className="form-Kids fit-content">
+                        <div className="chip">
                             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
                             Crianças
                         </div>
                         <Link to="/addKid">
-                            <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 ">+</button>
+                            <button type="submit" className="btn btn-outline-primary my-2 my-sm-0 ">+</button>
                         </Link>
-                        <div class="form-group-tb">
-                            <div class="form-row" text-align="center">
-                                <table class="table table-responsive table-selectable-multiple" float="auto">
+                        <div className="form-group-tb">
+                            <div className="form-row" text-align="center">
+                                <table className="table table-responsive table-selectable-multiple" float="auto">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -125,7 +125,7 @@ function App() {
                         </div>
                     </form>
                 </div>
-            </body>
+            
         </div>
     );
 }

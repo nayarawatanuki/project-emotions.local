@@ -65,11 +65,11 @@ function App() {
         <div className="App">
             <header className="App-header">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <nav class="navbar navbar-light bg-light">
+                <nav className="navbar navbar-light bg-light">
                     <Link to="/">
-                        <button type="button" class="btn btn-primary">Voltar</button>
+                        <button type="button" className="btn btn-primary">Voltar</button>
                     </Link>
-                    <h5 class="navbar-brand float-center">Crianças</h5>
+                    <h5 className="navbar-brand float-center">Crianças</h5>
                     <h1> </h1>
                 </nav>
             </header>
@@ -78,32 +78,32 @@ function App() {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
 
-                <div class="backgroud-Activities float-center">
+                <div className="backgroud-Activities float-center">
 
-                    <form class="form-Activities fit-content">
-                        <div class="form-row">
-                            <div class="chip">
+                    <form className="form-Activities fit-content">
+                        <div className="form-row">
+                            <div className="chip">
                                 <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
                                 Atividades
                             </div>
                             <Link to="/addActivity">
-                                <button type="submit" class="btn btn-outline-info d-inline-block" width="auto">
-                                    <i class="fas fa-plus"></i>
+                                <button type="submit" className="btn btn-outline-info d-inline-block" width="auto">
+                                    <i className="fas fa-plus"></i>
                                 </button>
                             </Link>
                         </div>
 
-                        <div class="form-group-tb">
-                            <div class="form-group">
-                                <div class="form-row">
-                                    <input class="search mr-sm-2 col-4" width="auto" type="search" placeholder="Pesquisar" aria-label="Pesquisar"></input>
-                                    <button class="btn btn-outline-info d-inline-block" width="auto" type="submit">
-                                        <i class="fas fa-search"></i>
+                        <div className="form-group-tb">
+                            <div className="form-group">
+                                <div className="form-row">
+                                    <input className="search mr-sm-2 col-4" width="auto" type="search" placeholder="Pesquisar" aria-label="Pesquisar"></input>
+                                    <button className="btn btn-outline-info d-inline-block" width="auto" type="submit">
+                                        <i className="fas fa-search"></i>
                                     </button>
                                 </div>
                             </div>
-                            <div class="form-row" text-align="center">
-                                <table class="table table-responsive table-selectable table-striped" float="auto">
+                            <div className="form-row" text-align="center">
+                                <table className="table table-responsive table-selectable table-striped" float="auto">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -131,11 +131,11 @@ function App() {
                         </div>
                         
 
-                        <div class="form-group-vinc">
-                            <div class="form-group">
+                        <div className="form-group-vinc">
+                            <div className="form-group">
                                 <label htmlFor="kids">Criança:</label>
-                                <div class="form-row">
-                                    <select id="kids" class="form-control mr-sm-2 col-4">
+                                <div className="form-row">
+                                    <select id="kids" className="form-control mr-sm-2 col-4">
                                         {listKids.map((kid) => {
                                             return (
                                                 <option selected>{kid.name}</option> 
@@ -143,14 +143,14 @@ function App() {
                                             })}
                                     </select>
                                     <Link to="/Menu">
-                                        <button type="submit" class="btn btn-outline-success d-inline-block" width="auto">
-                                            <i class="fas fa-sync"></i>
+                                        <button type="submit" className="btn btn-outline-success d-inline-block" width="auto">
+                                            <i className="fas fa-sync"></i>
                                         </button>
                                     </Link>
 
                                     <Link to="/ImagesWords">
-                                        <button type="submit" class="btn btn-outline-success d-inline-block" width="auto">
-                                            <i class="fas fa-plus"></i>
+                                        <button type="submit" className="btn btn-outline-success d-inline-block" width="auto">
+                                            <i className="fas fa-plus"></i>
                                         </button>
                                     </Link>
                                 </div>

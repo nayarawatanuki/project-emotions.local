@@ -1,78 +1,77 @@
-import React from 'react';
+import React, { Component } from "react";
 import { Link } from 'react-router-dom'
-import Draggable from 'react-draggable';
-import './style.css';
 
-function App() {
+import GlobalStyle from '../../../styles/global';
+import { App, Container, Content } from './styles';
 
-  function allowDrop(e) {
-    e.preventDefault();
-  }
-
-  function drop(e) {
-    e.preventDefault();
-    var data = e.dataTransfer.getData("text");
-    e.target.appendChild(document.getElementById(data));
-  }
+class TaskImgWords extends Component {
+  render() {
+    function allowDrop(e) {
+      e.preventDefault();
+    }
   
-
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <nav class="navbar navbar-light bg-light">
-          <Link to="/Kids">
-            <button type="button" class="btn btn-primary">Voltar</button>
-          </Link>
-          <h5 class="navbar-brand float-center" text-align="center">Adicionando Criança</h5>
-          <h1> </h1>
-        </nav>
-      </header>
-     
-      <body>
-       
-        <div class="backgroud-TaskImgWords float-center">
+    function drag(e) {
+      e.dataTransfer.setData("text", e.target.id);
+    }
+  
+    function drop(e) {
+      e.preventDefault();
+      var data = e.dataTransfer.getData("text");
+      e.target.appendChild(document.getElementById(data));
+    }
+      return (
+          <App>
+              <nav class="navbar navbar-light bg-light">
+                <Link to="/KidAcess">
+                  <button type="button" class="button button-danger">SAIR</button>
+                </Link>
+                <h4 class="navbar float-center">Associando palavras com imagens</h4>
+              </nav>
           
-          <form class="form-TaskImgWords" >            
-            <div class="form-row">
-              
-            </div>           
-
-            <div class="form-infoKid float-center">
-              
-              <div align="center">
-                <figure>
-                  <img  ondrop={(e) => {drop(e)}} ondragover={(e) => {allowDrop(e)}} src="https://rollingstone.uol.com.br/media/_versions/legacy/2015/img-1031213-ira-em-estado-bruto_widemd.jpg" alt="Hulk" />
-                  
-                </figure>
-              </div>
-
-              
-                <div  >
-                  <Draggable>
-                    <label id="word1" name="triste" value="TRISTE">TRISTE</label>
-                  </Draggable>
-                </div>  
-
-                <div  >
-                  <label id="word2" name="feliz" value="FELIZ">FELIZ</label>
-                </div>
-
-                <div  >
-                  <label id="word3" name="bravo" value="BRAVO">BRAVO</label>
-                  
-                </div>
-              
-            </div>
-
-          </form>
-
-        </div>
-
-      </body>
-
-    </div>
-  );
+              <Container>
+                  <Content>
+                    <form> 
+                        <div>
+                          <img alt="Hulk" display="center"
+                            onDragOver={(e)=> allowDrop(e)} 
+                            onDrop={(e)=> drop(e)} align="center"  
+                            src="https://rollingstone.uol.com.br/media/_versions/legacy/2015/img-1031213-ira-em-estado-bruto_widemd.jpg" />
+                        </div>
+          
+                        
+                        <div class="div-label" >
+                          <div>
+                              <label id="emotion1" name="emotion1" 
+                                value="TRISTE"
+                                draggable={true} 
+                                onDragStart={(e)=> drag(e)}
+                                onDragEnd={(e)=> {window.alert('Ops, tente outra vez.') }}>TRISTE
+                              </label>
+                          </div>  
+        
+                          <div>
+                            <label id="emotion2" name="emotion2" 
+                              value="FELIZ" 
+                              draggable={true} onDragStart={(e)=> drag(e)}
+                              onDragEnd={(e)=> window.alert('Ops, tente outra vez.')}>FELIZ
+                            </label>
+                          </div>
+        
+                          <div>
+                            <label id="emotion3" name="emotion3" 
+                              value="BRAVO"
+                              draggable={true} onDragStart={(e)=> drag(e)} 
+                              onDragEnd={(e)=> window.alert('PARABÉNS!!!')}>BRAVO
+                            </label>
+                          </div>
+                        </div>
+                      
+                    </form>
+                  </Content>
+                  <GlobalStyle />
+              </Container>
+          </App>                
+      )
+  }
 }
-
-export default App;
+export default TaskImgWords;

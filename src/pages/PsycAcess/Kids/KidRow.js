@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import FileList from '../../../components/PreviewKid';
+
 function KidRow({ kid, updateKid, deleteKid }){ 
     const [treatment, setTreatment] = useState(kid.treatment);
     const [code, setCode] = useState(kid.code);
@@ -13,16 +15,16 @@ function KidRow({ kid, updateKid, deleteKid }){
     const [isReadOnly, setReadOnly] = useState(true);
     
     return(
-      <tr id="rows" class="tr" padding="checkbox">
+      <tr id="rows" className="tr" padding="checkbox">
         <td>
           <input type="checkbox" />
         </td>
-        <td class="fit-content">{kid.id}</td>
+        <td className="fit-content">{kid.id}</td>
 
         <td>
           <input
             id="treatment"
-            class="input"
+            className="input"
             type="text"
             defaultValue={treatment}
             onChange={(e) => setTreatment(e.target.value)}
@@ -32,7 +34,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="code"
-            class="input"
+            className="input"
             type="text"
             defaultValue={code}
             onChange={(e) => setCode(e.target.value)}
@@ -43,7 +45,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="name"
-            class="input"
+            className="input"
             type="text"
             defaultValue={name}
             onChange={(e) => setName(e.target.value)}
@@ -54,7 +56,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="rate"
-            class="input"
+            className="input"
             type="text"
             defaultValue={rate}
             onChange={(e) => setRate(e.target.value)}
@@ -65,7 +67,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="birth"
-            class="input"
+            className="input"
             type="text"
             defaultValue={birth}
             onChange={(e) => setBirth(e.target.value)}
@@ -76,7 +78,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="parent"
-            class="input"
+            className="input"
             type="text"
             defaultValue={parent}
             onChange={(e) => setParent(e.target.value)}
@@ -87,7 +89,7 @@ function KidRow({ kid, updateKid, deleteKid }){
         <td>
           <input
             id="note"
-            class="input"
+            className="input"
             type="text"
             defaultValue={note}
             onChange={(e) => setNote(e.target.value)}
@@ -96,11 +98,9 @@ function KidRow({ kid, updateKid, deleteKid }){
         </td>
 
         <td>
-          <input
+          <FileList 
             id="photo"
-            class="input"
-            type="text"
-            defaultValue={photo}
+            file={photo}
             onChange={(e) => setPhoto(e.target.files[0])}
             readOnly={isReadOnly}
           />
@@ -109,16 +109,16 @@ function KidRow({ kid, updateKid, deleteKid }){
 
         <td>
           <button
-            class="btn btn-sm btn-success d-inline-block mr-1"
+            className="btn btn-sm btn-success d-inline-block mr-1"
             onClick={(e) => {
               e.preventDefault(); 
               setReadOnly(false);
             }}
           >
-            <i class="fas fa-edit"></i>
+            <i className="fas fa-edit"></i>
           </button>
           <button
-            class="btn btn-sm btn-success d-inline-block mr-1"
+            className="btn btn-sm btn-success d-inline-block mr-1"
             onClick={(e) => {
               e.preventDefault();
               updateKid({
@@ -134,16 +134,16 @@ function KidRow({ kid, updateKid, deleteKid }){
               setReadOnly(true);
             }}
           >
-            <i class="fas fa-save"></i>
+            <i className="fas fa-save"></i>
           </button>
           <button
-            class="btn btn-sm btn-danger d-inline-block"
+            className="btn btn-sm btn-danger d-inline-block"
             onClick={(e) => {
               e.preventDefault();
               deleteKid(kid.id);
             }}
           >
-            <i class="fas fa-trash-alt"></i>
+            <i className="fas fa-trash-alt"></i>
           </button>
         </td>
       </tr>

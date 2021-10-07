@@ -8,16 +8,16 @@ function ActivityRow({ activity, updateActivity, deleteActivity }){
     const [isReadOnly, setReadOnly] = useState(true);
     
     return(
-      <tr id="rows" class="tr" padding="checkbox">
+      <tr id="rows" className="tr" padding="checkbox">
         <td>
           <input type="checkbox" />
         </td>
-        <td class="fit-content">{activity.id}</td>
+        <td className="fit-content">{activity.id}</td>
 
         <td>
           <input
             id="name"
-            class="input"
+            className="input"
             type="text"
             defaultValue={name}
             onChange={(e) => setName(e.target.value)}
@@ -27,7 +27,7 @@ function ActivityRow({ activity, updateActivity, deleteActivity }){
         <td>
           <input
             id="type"
-            class="input"
+            className="input"
             type="text"
             defaultValue={type}
             onChange={(e) => setType(e.target.value)}
@@ -38,7 +38,7 @@ function ActivityRow({ activity, updateActivity, deleteActivity }){
         <td>
           <input
             id="emotion"
-            class="input"
+            className="input"
             type="text"
             defaultValue={emotion}
             onChange={(e) => setEmotion(e.target.value)}
@@ -48,16 +48,16 @@ function ActivityRow({ activity, updateActivity, deleteActivity }){
 
         <td>
           <button
-            class="btn btn-sm btn-success d-inline-block mr-1"
+            className="btn btn-sm btn-success d-inline-block mr-1"
             onClick={(e) => {
               e.preventDefault(); 
               setReadOnly(false);
             }}
           >
-            <i class="fas fa-edit"></i>
+            <i className="fas fa-edit"></i>
           </button>
           <button
-            class="btn btn-sm btn-success d-inline-block mr-1"
+            className="btn btn-sm btn-success d-inline-block mr-1"
             onClick={(e) => {
               e.preventDefault();
               updateActivity({
@@ -69,16 +69,16 @@ function ActivityRow({ activity, updateActivity, deleteActivity }){
               setReadOnly(true);
             }}
           >
-            <i class="fas fa-save"></i>
+            <i className="fas fa-save"></i>
           </button>
           <button
-            class="btn btn-sm btn-danger d-inline-block"
+            className="btn btn-sm btn-danger d-inline-block"
             onClick={(e) => {
               e.preventDefault();
               deleteActivity(activity.id);
             }}
           >
-            <i class="fas fa-trash-alt"></i>
+            <i className="fas fa-trash-alt"></i>
           </button>
         </td>
       </tr>

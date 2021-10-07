@@ -1,140 +1,180 @@
-import { useState } from 'react';
-import Axios from 'axios';
-import { Link, useHistory } from 'react-router-dom'
+import React, { Component } from 'react';
+import { uniqueId } from 'lodash';
+import filesize from 'filesize';
+
+import GlobalStyle from '../../../styles/global';
+import { App, Container, Content } from './styles.js';
 import './style.css';
 
-function Kid() {
-  const history = useHistory();
+import { Link } from 'react-router-dom'
 
-  const [treatment, setTreatment] = useState("");
-  const [code,setCode] = useState("");
-  const [name,setName] = useState("");
-  const [rate,setRate] = useState("");
-  const [birth,setBirth] = useState("");
-  const [parent,setParent] = useState("");
-  const [note,setNote] = useState("");
-  const [photo, setPhoto] = useState([]);
+import api from '../../../services/api'
+import Upload from '../../../components/Upload';
+import FileList from '../../../components/FileList';
 
-  async function create() {    
-    if(!name || !rate  || !birth  || !parent  || !note) {
-      window.alert('Prencha todos os campos')
-    }
-      
-    await Axios.post(
-      '/createdKid',
-      {treatment, code, name, rate, birth, parent, note, photo},
+class addKid extends Component {
+  state = {
+    uploadedFile: [],
+  };
+
+  handleUpload = photo => {
+    const uploadedFile = photo.map(photo => ({
+      photo,
+      id: uniqueId(),
+      name: photo.name,
+      readableSize: filesize(photo.size),
+      preview: URL.createObjectURL(photo),
+      Progress: 0,
+      uploaded: false,
+      error: false,
+      url: null,
+    }));
+
+    this.setState({
+      uploadedFile: this.state.uploadedFile.concat(uploadedFile)
+    });
+
+    console.log(photo);
+
+    uploadedFile.forEach(this.processUpload);
+  }
+
+  updateFile = (id, data) => {
+    this.setState({ uploadedFile: this.state.uploadedFile.map(uploadedFile => { 
+      return id === uploadedFile.id 
+        ? { ...uploadedFile, ...data } 
+        : uploadedFile;
+      })
+    });
+  }
+
+  processUpload = (uploadedFile) => {
+
+    const file = uploadedFile.preview;
+    const treatment = document.getElementById('treatment').value;
+    const code = document.getElementById('code').value;
+    const name = document.getElementById('name').value;
+    const rate = document.getElementById('rate').value;
+    const birth = document.getElementById('birth').value;
+    const parent = document.getElementById('parent').value;
+    const note = document.getElementById('note').value;
     
-      window.alert('Criança cadastrada!')
-    )
-    .then(response => 
-      console.log(JSON.stringify({
-        "tratamento": treatment,
-        "codigo": code,
-        "nome": name, 
-        "grau": rate,
-        "data de nascimento": birth,
-        "responsavel": parent,
-        "observações": note,
-        "foto": photo
-      })),
-      console.log("Criança cadastrada!")
-    );
-  }
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await create(); 
+    /*const data = new FormData();
 
-    history.push('/Kids')
+    data.append('treatment', treatment);
+    data.append('code', code);
+    data.append('name', name);
+    data.append('rate', rate);
+    data.append('birth', birth);
+    data.append('parent', parent);
+    data.append('note', note);
+    data.append('photo', uploadedFile.photo, uploadedFile.name);*/
+
+    console.log(file, treatment, code, name, rate, birth, parent, note);
+    api.post('createdKid', { file, treatment, code, name, rate, birth, parent, note }, {
+      onUploadProgres: e => {
+        const progress = parseInt(Math.round((e.loaded * 100) / e.total));
+
+        this.updateFile(uploadedFile.id, {
+          progress,
+        })
+      }
+    })
   }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <nav class="navbar navbar-light bg-light">
+  render() {
+    const { uploadedFile } = this.state;
+    return (
+      <App>
+        <nav className="navbar navbar-light bg-light" >
           <Link to="/Kids">
-            <button type="button" class="btn btn-primary">Voltar</button>
+            <button type="button" className="button button-info">Voltar</button>
           </Link>
-          <h5 class="navbar-brand float-center" text-align="center">Adicionando Criança</h5>
-          <h1> </h1>
+          <h5 className="navbar-brand float-center" text-align="center">Adicionando Criança</h5>
         </nav>
-      </header>
-     
-      <body>
-       
-        <div class="backgroud-addKid float-center">
-          
-          <form class="form-addKid" method="POST" onSubmit={create}>            
-            <div class="form-row">
-              <div class="form-check col-md float-center">
-                <input type="checkbox" class="form-check-input" id="inputTreatment" onChange={(e)=>{setTreatment(e.target.value)}} />
-                <label for="inputTreatment" class="form-check-label">Tratamento ativo</label>
-              </div>
-            </div>           
+        
+        <Container>
+          <Content>
+          <form >
+                <div className="form-check">
+                  <input type="checkbox" id="treatment" defaultValue="off"
+                  className="form-check-input"
+                  onChange={(e)=>{
+                    if(e.target.checked !== true){
+                      e.target.value = "off"
+                    }else{
+                      e.target.value = "on"
+                    }
+                  }} />
+                  <label htmlFor="treatment">Tratamento ativo</label>
+                </div>       
 
-            <div class="form-infoKid float-center">
-              
-              <div class="form-group">
-                <label htmlFor="code">Código de Acesso</label>
-                <input type="number" id="code" name="code" class="form-control" placeholder="Defina um código de acesso" defaultValue={parseInt(Math.random()*10000)} onChange={(e)=>{setCode(e.target.value)}}/>
-              </div>
+                <div className="form-infoKid float-center" margin-top="10%">
+                  <div className="form-group" >
+                    <label htmlFor="code">Código de Acesso</label>
+                    <input type="number" id="code" name="code" className="form-control" placeholder="Defina um código de acesso" defaultValue={parseInt(Math.random()*10000)} />
+                  </div>
 
-              <div class="form-group">
-                <label htmlFor="name"> Nome </label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Digite o nome da criança" onChange={(e)=>{setName(e.target.value)}}/>
-              </div>
+                  <div className="form-group">
+                    <label htmlFor="name"> Nome </label>
+                    <input type="text" id="name" name="name" className="form-control" placeholder="Digite o nome da criança" /*onChange={(e)=>{setName(e.target.value)}}*/ />
+                  </div>
 
-              <div class="form-row">
-                <div class="form-group-state col-md-6">
-                  <label htmlFor="rate">Grau</label>
-                  <select id="rate" name="rate" class="form-control" placeholder="Selecione" value={rate} onChange={(e)=>{setRate(e.target.value)}}>
-                    <option> </option>
-                    <option value = "severo" selected>Severo</option>
-                    <option value = "moderado"selected>Moderado</option>
-                    <option value = "leve"selected>Leve</option>
-                  </select>
-                </div>     
-                <div class="form-group col-md-6">
-                  <label htmlFor="birth">Data de nasc.</label>
-                  <input type="text" id="birth" name="birth" class="form-control" onChange={(e)=>{setBirth(e.target.value)}}/>
+                  <div className="form-row">
+                    <div className="form-group-state col-md-6">
+                      <label htmlFor="rate">Grau</label>
+                      <select id="rate" name="rate" className="form-control" placeholder="Selecione" /*value={rate} onChange={(e)=>{setRate(e.target.value)}}*/ >
+                        <option> </option>
+                        <option value = "severo" >Severo</option>
+                        <option value = "moderado">Moderado</option>
+                        <option value = "leve">Leve</option>
+                      </select>
+                    </div>     
+                    <div className="form-group col-md-6">
+                      <label htmlFor="birth">Data de nasc.</label>
+                      <input type="text" id="birth" name="birth" className="form-control" /*onChange={(e)=>{setBirth(e.target.value)}}*/ />
+                    </div>
+                  </div>    
+
+                  <div className="form-group">
+                    <label htmlFor="parent">Responsável</label>
+                    <input type="text" id="parent" name="parent" className="form-control" placeholder="Nome do responsável" /*onChange={(e)=>{setParent(e.target.value)}}*/ />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="note">Observações</label>
+                    <textarea type="text" id="note" name="note" className="form-control" placeholder="Detalhar criança" /*onChange={(e)=>{setNote(e.target.value)}}*/ /> 
+                  </div>
+
+                  <div className="form-group" >
+                    <Upload onUpload={this.handleUpload} />
+                    
+                    { !!uploadedFile.length && (
+                      <FileList file={uploadedFile} />
+                    )}
+                  </div>
+                  
+                  <div>
+                    <Link to="/Kids">
+                      <button className="button button-danger">Cancelar</button>
+                    </Link>
+
+                    <button onClick ={this.handleUpload} className="button button-success">Adicionar</button>
+                    
+                  </div>
+
                 </div>
-              </div>    
 
-              <div class="form-group">
-                <label htmlFor="parent">Responsável</label>
-                <input type="text" id="parent" name="parent" class="form-control" placeholder="Nome do responsável" onChange={(e)=>{setParent(e.target.value)}}/>
-              </div>
-
-              <div class="form-group">
-                <label htmlFor="note">Observações</label>
-                <textarea type="text" id="note" name="note" class="form-control" placeholder="Detalhar criança" onChange={(e)=>{setNote(e.target.value)}}/> 
-              </div>
-
-              <div method="post" class="form-group col-md" enctype="multipart/form-data">
-                <label for="photo"   />
-                <input type="file" id="photo" name="photo" single onChange={(e) => {setPhoto(e.target.value)}} />
-              </div>
-              
-
-              <div class="form-group-button">
-                <Link to="/Kids">
-                  <button type="button" class="btn btn-primary">Cancelar</button>
-                </Link>
-
-                <button  onClick ={handleSubmit} Ontype="submit" class="btn btn-success">Adicionar</button>
-                
-              </div>
-
-            </div>
-
-          </form>
-
-        </div>
-
-      </body>
-
-    </div>
-  );
+              </form>
+            
+          </Content>
+          <GlobalStyle />
+        </Container>
+      </App>
+      
+    
+    )
+  }
 }
 
-export default Kid;
+export default addKid;

@@ -3,6 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class Kid extends Model {
     static init(sequelize) {
         super.init({
+            file: DataTypes.BLOB,
             treatment: DataTypes.STRING,
             code: DataTypes.STRING,
             name: DataTypes.STRING,
@@ -10,7 +11,6 @@ class Kid extends Model {
             birth: DataTypes.STRING,
             parent: DataTypes.STRING,
             note: DataTypes.STRING,
-            photo: DataTypes.BLOB,
         }, {
             sequelize
         })

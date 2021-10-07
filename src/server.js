@@ -1,26 +1,28 @@
 const express = require('express');
-const routes = require('./routes')
-const upload = require('./function/uploadsPhoto/index');
+//const path = require('path');
+const cors = require('cors');
+
+const routes = require('./routes');
+const multer = require('multer');
+const multerConfig = require('./config/multer');
+//const upload = require('./function/uploadsPhoto/index');
 
 require('./db');
 const app = express();
 
-app.use(require('cors')());
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+/*app.use(
+    "/files",
+    express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
+);*/
+
 app.use(routes);
 
 app.listen(3000, () => {
     console.log('server start');
 })
-
-/*const conn = require('mysql2');
-    conn.createPool({
-        user: "root",
-        host: "localhost",
-        password: "7797",
-        database: "emotions",
-    }
-);*/
 
 app.get("/listKids", (req, res) => {
     
@@ -31,15 +33,15 @@ app.get("/listKids", (req, res) => {
     return res.json(kids);
 })
 
-app.post('/createdKid', upload.single('photo'), (req, res) => {
+app.post('/createdKid', multer(multerConfig).single("file"), (req, res) => {
     
+    const { file } = req.file.originalname;
     const { treatment, code, name, rate, birth, parent, note } = req.body;
-    const { photo } = req.file;
-
+    
     const Kid = require('./models/Kid');
 
     const kid = Kid.create(
-        { treatment, code, name, rate, birth, parent, note, photo },
+        { file, treatment, code, name, rate, birth, parent, note },
         (err, result) => {
             if (err) {
               console.log(err);
@@ -56,6 +58,9 @@ app.post('/createdKid', upload.single('photo'), (req, res) => {
                 }
 
                 res.send("Valores inseridos");
+                
+
+                return console.log(req.file);
             }
         }
     );

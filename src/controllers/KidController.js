@@ -9,9 +9,9 @@ module.exports = {
     },
 
     async insert(req, res) {
-        const { treatment, code, name, rate, birth, parent, note, photo } = req.body;
+        const { file, treatment, code, name, rate, birth, parent, note } = req.body;
 
-        const kid = await Kid.create({ treatment, code, name, rate, birth, parent, note, photo });
+        const kid = await Kid.create({ file, treatment, code, name, rate, birth, parent, note });
 
         return res.json(kid);
     },

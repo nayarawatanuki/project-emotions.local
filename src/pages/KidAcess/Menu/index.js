@@ -1,46 +1,31 @@
+import React, { Component } from "react";
 import { Link } from 'react-router-dom'
-import './style.css';
 
-function App() {
+import GlobalStyle from '../../../styles/global';
+import { App, Container, Content } from './styles';
 
-    return (
-        <div className="App">
-           
-            <header className="App-header">
+class KidAcess extends Component {
+    render() {
+        return (
+            <App>
                 <nav class="navbar navbar-light bg-light">
-                    <h5 class="navbar-brand float-center">Menu</h5>
-                    <h1> </h1>
+                    <h4 class="navbar float-center">HOME</h4>
                 </nav>
-            </header>
-        
-            <body>
-        
-                <div class="backgroud-menu float-center">
-                    
-                    <form class="form-menu">
-                        
-                        <div class="form-info float-center">
-
-                            <h1>Por onde voce quer começar?</h1>
+            
+                <Container>
+                    <Content>
+                        <form> 
+                            <h1>Vamos começar?</h1>
                         
                             <Link to="/TaskImgWords">
-                                <button type="submit" class="btn-kid btn-primary btn-lg btn-block float-center">Tarefa</button>
+                                <button margin-top="2%" type="submit" class="button button-info btn-lg btn-block float-center">Tarefas</button>
                             </Link>
-                            
-                            
-                            
-                            
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </body>
-
-        </div>
-
-    );
+                        </form>
+                    </Content>
+                    <GlobalStyle />
+                </Container>
+            </App>                
+        )
+    }
 }
-
-export default App;
+export default KidAcess;

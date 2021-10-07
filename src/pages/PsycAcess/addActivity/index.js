@@ -43,31 +43,31 @@ function App() {
         <div className="App">
            
             <header className="App-header">
-                <nav class="navbar navbar-light bg-light">
+                <nav className="navbar navbar-light bg-light">
                     <Link to="/Activities">
-                        <button type="button" class="btn btn-primary">Voltar</button>
+                        <button type="button" className="btn btn-primary">Voltar</button>
                     </Link>
-                    <h5 class="navbar-brand float-center" text-align="center">Adicionando Atividade</h5>
+                    <h5 className="navbar-brand float-center" text-align="center">Adicionando Atividade</h5>
                     <h1> </h1>
                 </nav>
             </header>
         
             <body>
         
-                <div class="backgroud-addActivity float-center">
+                <div className="backgroud-addActivity float-center">
                     
-                    <form class="form-addActivity" onSubmit={create}>
+                    <form className="form-addActivity" onSubmit={create}>
                         
-                        <div class="form-group">
+                        <div className="form-group">
                             <label htmlFor="name">Nome da atividade:</label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Digite o nome da atividade" onChange={(e)=>{setName(e.target.value)}}/>
+                            <input type="text" id="name" name="name" className="form-control" placeholder="Digite o nome da atividade" onChange={(e)=>{setName(e.target.value)}}/>
                         </div>
 
                         
 
-                        <div class="form-group">
+                        <div className="form-group">
                             <label htmlFor="type">Tipo:</label>
-                            <select id="type" name="type" class="form-control" placeholder="Selecione" value={type} onChange={(e)=>{setType(e.target.value)}}>
+                            <select id="type" name="type" className="form-control" placeholder="Selecione" value={type} onChange={(e)=>{setType(e.target.value)}}>
                                 <option> </option>
                                 <option value = "Apresentação" selected>Apresentação</option>
                                 <option value = "Associação de imagem com palavra" selected>Associação de imagem com palavra</option>
@@ -75,42 +75,42 @@ function App() {
                             </select>
                         </div> 
 
-                        <div class="form-group">
+                        <div className="form-group">
                             <label>Emoção Trabalhada:</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="emotion" id="felicidade" onChange={(e)=>{setEmotion(e.target.id)}}></input>
-                                <label class="form-check-label" for="felicidade">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="emotion" id="felicidade" onChange={(e)=>{setEmotion(e.target.id)}}></input>
+                                <label className="form-check-label" for="felicidade">
                                     Felicidade
                                 </label>
                             </div>
                             
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="emotion" id="tristeza" onChange={(e)=>{setEmotion(e.target.id)}}></input>
-                                <label class="form-check-label" for="tristeza">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="emotion" id="tristeza" onChange={(e)=>{setEmotion(e.target.id)}}></input>
+                                <label className="form-check-label" for="tristeza">
                                     Tristeza
                                 </label>
                             </div>
                             
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="emotion" id="raiva" onChange={(e)=>{setEmotion(e.target.id)}}></input>
-                                <label class="form-check-label" for="raiva">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="emotion" id="raiva" onChange={(e)=>{setEmotion(e.target.id)}}></input>
+                                <label className="form-check-label" for="raiva">
                                     Raiva
                                 </label>
                             </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="emotion" id="medo" onChange={(e)=>{setEmotion(e.target.id)}}></input>
-                                <label class="form-check-label" for="medo">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="emotion" id="medo" onChange={(e)=>{setEmotion(e.target.id)}}></input>
+                                <label className="form-check-label" for="medo">
                                     Medo
                                 </label>
                             </div>
                             
-                            <div class="form-group-button">
+                            <div className="form-group-button">
                                 <Link to="/Activities">
-                                    <button type="button" class="btn btn-primary">Cancelar</button>
+                                    <button type="button" className="btn btn-primary">Cancelar</button>
                                 </Link>
 
-                                <button  onClick ={handleSubmit} Ontype="submit" class="btn btn-success">Adicionar</button>
+                                <button  onClick ={handleSubmit} Ontype="submit" className="btn btn-success">Adicionar</button>
                             </div>
 
                         </div>
