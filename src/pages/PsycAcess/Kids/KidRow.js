@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import FileList from '../../../components/PreviewKid';
 
 function KidRow({ kid, updateKid, deleteKid }){ 
+
+    const [photo, setPhoto] = useState(kid.file);
     const [treatment, setTreatment] = useState(kid.treatment);
     const [code, setCode] = useState(kid.code);
     const [name, setName] = useState(kid.name);
@@ -10,7 +12,7 @@ function KidRow({ kid, updateKid, deleteKid }){
     const [birth, setBirth] = useState(kid.birth);
     const [parent, setParent] = useState(kid.parent);
     const [note, setNote] = useState(kid.note);
-    const [photo, setPhoto] = useState(kid.photo);
+    
 
     const [isReadOnly, setReadOnly] = useState(true);
     
@@ -20,6 +22,15 @@ function KidRow({ kid, updateKid, deleteKid }){
           <input type="checkbox" />
         </td>
         <td className="fit-content">{kid.id}</td>
+
+        <td>
+          <FileList 
+            file={photo}
+            id='file'
+            //onChange={(e) => setPhoto(e.target.files[0])}
+            readOnly={isReadOnly}
+          />  
+        </td>
 
         <td>
           <input
@@ -95,16 +106,6 @@ function KidRow({ kid, updateKid, deleteKid }){
             onChange={(e) => setNote(e.target.value)}
             readOnly={isReadOnly}
           />
-        </td>
-
-        <td>
-          <FileList 
-            id="photo"
-            file={photo}
-            onChange={(e) => setPhoto(e.target.files[0])}
-            readOnly={isReadOnly}
-          />
-          
         </td>
 
         <td>

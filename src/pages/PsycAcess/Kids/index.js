@@ -98,6 +98,7 @@ function App() {
                                         <tr>
                                             <th></th>
                                             <th>id</th>
+                                            <th>photo</th>
                                             <th>tratamento</th>
                                             <th>codigo</th>
                                             <th>nome</th>
@@ -105,7 +106,6 @@ function App() {
                                             <th>nascimento</th>
                                             <th>responsavel</th>
                                             <th>obs</th>
-                                            <th>photo</th>
                                             <th>ação</th>
                                         </tr>
                                     </thead>

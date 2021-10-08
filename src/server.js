@@ -1,22 +1,22 @@
 const express = require('express');
-//const path = require('path');
-const cors = require('cors');
-
 const routes = require('./routes');
+const path = require("path");
+const cors = require('cors');
+require('./db');
+
 const multer = require('multer');
 const multerConfig = require('./config/multer');
-//const upload = require('./function/uploadsPhoto/index');
 
-require('./db');
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-/*app.use(
-    "/files",
-    express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
-);*/
+app.use(
+    "/photos",
+    express.static(path.resolve(__dirname, "../temp/uploads"))
+);
 
 app.use(routes);
 
@@ -24,7 +24,42 @@ app.listen(3000, () => {
     console.log('server start');
 })
 
-app.get("/listKids", (req, res) => {
+/*app.get('/kidPhoto', (req, res) => {
+
+    const KidPhoto = require('./models/KidPhoto');
+
+    const photoKid = KidPhoto.findAll();
+  
+    return res.json(photoKid);
+  });
+
+app.post('/insertKidPhoto', multer(multerConfig).single('photo'), (req, res) => {
+    const { originalname: photo, size, filename: key } = req.file;
+  
+    const KidPhoto = require('./models/KidPhoto');
+
+    const photoKid = KidPhoto.create({
+      photo,
+      size,
+      key,
+      url: " "
+    });
+  
+    return res.json(photoKid);
+});
+  
+app.delete('/deletePhoto/:id', (req, res) => {
+
+    const KidPhoto = require('./models/KidPhoto');
+
+    const photo = KidPhoto.findById(req.params.id);
+  
+    photo.remove();
+  
+    return res.send();
+});*/
+
+app.get('/listKids', (req, res) => {
     
     const Kids = require('./models/Kid');
 
@@ -35,7 +70,7 @@ app.get("/listKids", (req, res) => {
 
 app.post('/createdKid', multer(multerConfig).single("file"), (req, res) => {
     
-    const { file } = req.file.originalname;
+    const { originalname: key, filename: file } = req.file;
     const { treatment, code, name, rate, birth, parent, note } = req.body;
     
     const Kid = require('./models/Kid');

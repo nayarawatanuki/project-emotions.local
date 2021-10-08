@@ -1,40 +1,44 @@
-const Kid = require('../models/Kid');
+const KidPhoto = require('../models/KidPhoto');
 
 module.exports = {
 
     async list(req, res) {
-        const kids = await Kid.findAll();
+        const kidPhoto = await KidPhoto.findAll();
 
-        return res.json(kids);
+        return res.json(kidPhoto);
     },
 
     async insert(req, res) {
+        const { originalname: photo, size, filename: key } = req.file;
+  
+        const KidPhoto = require('./models/KidPhoto');
 
-        const { originalname: key, filename: file } = req.file;
-        const { treatment, code, name, rate, birth, parent, note } = req.body;
-
-        const kid = await Kid.create(
-            { file, treatment, code, name, rate, birth, parent, note });
-
-        return res.json(kid);
+        const kidPhoto = await KidPhoto.create({
+            photo,
+            size,
+            key,
+            url: " "
+        });
+  
+        return res.json(kidPhoto);
     },
 
     async update(req, res) {
         const { id } = req.params;
 
-        const { file, treatment, code, name, rate, birth, parent, note } = req.body;
+        const { treatment, code, name, rate, birth, parent, note } = req.body;
         
         console.log('controller update criança', req.params, req.body)
         try {
-            const kid = await Kid.update(
-                { file, treatment, code, name, rate, birth, parent, note },
+            const kidPhoto = await KidPhoto.update(
+                { treatment, code, name, rate, birth, parent, note },
                 
                 { where: {
                         id: id
                 }}
             )
     
-            return res.json(kid);
+            return res.json(kidPhoto);
 
         }catch(error){
             console.log(error.message);
@@ -49,13 +53,13 @@ module.exports = {
 
         console.log('controller delete criança', req.params)
         try {
-            const kid = await Kid.destroy({ 
+            const kidPhoto = await KidPhoto.destroy({ 
                 where: {
                     id: id
                 } 
             });
     
-            return res.json(kid);
+            return res.json(kidPhoto);
         }catch(error){
             console.log(error);
                 res.json({error: true});

@@ -27,16 +27,16 @@ class addKid extends Component {
       Progress: 0,
       uploaded: false,
       error: false,
-      url: null,
+      url: photo.url,
     }));
 
     this.setState({
       uploadedFile: this.state.uploadedFile.concat(uploadedFile)
     });
 
-    console.log(photo);
+    uploadedFile.forEach(this.createdKid);
 
-    uploadedFile.forEach(this.processUpload);
+    console.log(photo);
   }
 
   updateFile = (id, data) => {
@@ -48,30 +48,55 @@ class addKid extends Component {
     });
   }
 
-  processUpload = (uploadedFile) => {
+  /*processUpload = (uploadedFile) => {
 
-    const file = uploadedFile.preview;
-    const treatment = document.getElementById('treatment').value;
-    const code = document.getElementById('code').value;
-    const name = document.getElementById('name').value;
-    const rate = document.getElementById('rate').value;
-    const birth = document.getElementById('birth').value;
-    const parent = document.getElementById('parent').value;
-    const note = document.getElementById('note').value;
-    
-    /*const data = new FormData();
+    var data = new FormData();
 
-    data.append('treatment', treatment);
-    data.append('code', code);
-    data.append('name', name);
-    data.append('rate', rate);
-    data.append('birth', birth);
-    data.append('parent', parent);
-    data.append('note', note);
-    data.append('photo', uploadedFile.photo, uploadedFile.name);*/
+    data.append('photo', uploadedFile.photo, uploadedFile.name);
 
-    console.log(file, treatment, code, name, rate, birth, parent, note);
-    api.post('createdKid', { file, treatment, code, name, rate, birth, parent, note }, {
+    for (var key of data.entries()) {
+      console.log(key[0] + ': ' + key[1]);
+    }
+
+    api.post('insertKidPhoto', data, {
+      onUploadProgress: e => {
+        const progress = parseInt(Math.round((e.loaded * 100) / e.total));
+
+        this.updateFile(uploadedFile.id, {
+          progress
+        })
+      }
+    }).then(response => {
+      this.updateFile(uploadedFile.id, {
+        uploaded: true,
+        id: response.data.id,
+        ur: response.data.url
+      })
+    }).catch(() => {
+      this.updateFile(uploadedFile.id, {
+        error: true
+      })
+    })
+  }*/
+
+  createdKid = (uploadedFile) => {
+
+    var data = new FormData();
+
+    data.append('file', uploadedFile.photo, uploadedFile.name);
+    data.append('treatment', document.getElementById('treatment').value);
+    data.append('code', document.getElementById('code').value);
+    data.append('name', document.getElementById('name').value);
+    data.append('rate', document.getElementById('rate').value);
+    data.append('birth', document.getElementById('birth').value);
+    data.append('parent', document.getElementById('parent').value);
+    data.append('note', document.getElementById('note').value);
+
+    for (var key of data.entries()) {
+      console.log(key[0] + ': ' + key[1]);
+    }
+
+    api.post('createdKid', data, {
       onUploadProgres: e => {
         const progress = parseInt(Math.round((e.loaded * 100) / e.total));
 
@@ -79,6 +104,16 @@ class addKid extends Component {
           progress,
         })
       }
+    }).then(response => {
+      this.updateFile(uploadedFile.id, {
+        uploaded: true,
+        id: response.data.id,
+        ur: response.data.url
+      })
+    }).catch(() => {
+      this.updateFile(uploadedFile.id, {
+        error: true
+      })
     })
   }
 
@@ -95,7 +130,7 @@ class addKid extends Component {
         
         <Container>
           <Content>
-          <form >
+          <form encType='multipar/form-data'>
                 <div className="form-check">
                   <input type="checkbox" id="treatment" defaultValue="off"
                   className="form-check-input"
@@ -117,13 +152,13 @@ class addKid extends Component {
 
                   <div className="form-group">
                     <label htmlFor="name"> Nome </label>
-                    <input type="text" id="name" name="name" className="form-control" placeholder="Digite o nome da criança" /*onChange={(e)=>{setName(e.target.value)}}*/ />
+                    <input type="text" id="name" name="name" className="form-control" placeholder="Digite o nome da criança" />
                   </div>
 
                   <div className="form-row">
                     <div className="form-group-state col-md-6">
                       <label htmlFor="rate">Grau</label>
-                      <select id="rate" name="rate" className="form-control" placeholder="Selecione" /*value={rate} onChange={(e)=>{setRate(e.target.value)}}*/ >
+                      <select id="rate" name="rate" className="form-control" placeholder="Selecione">
                         <option> </option>
                         <option value = "severo" >Severo</option>
                         <option value = "moderado">Moderado</option>
@@ -132,18 +167,18 @@ class addKid extends Component {
                     </div>     
                     <div className="form-group col-md-6">
                       <label htmlFor="birth">Data de nasc.</label>
-                      <input type="text" id="birth" name="birth" className="form-control" /*onChange={(e)=>{setBirth(e.target.value)}}*/ />
+                      <input type="text" id="birth" name="birth" className="form-control" />
                     </div>
                   </div>    
 
                   <div className="form-group">
                     <label htmlFor="parent">Responsável</label>
-                    <input type="text" id="parent" name="parent" className="form-control" placeholder="Nome do responsável" /*onChange={(e)=>{setParent(e.target.value)}}*/ />
+                    <input type="text" id="parent" name="parent" className="form-control" placeholder="Nome do responsável" />
                   </div>
 
                   <div className="form-group">
                     <label htmlFor="note">Observações</label>
-                    <textarea type="text" id="note" name="note" className="form-control" placeholder="Detalhar criança" /*onChange={(e)=>{setNote(e.target.value)}}*/ /> 
+                    <textarea type="text" id="note" name="note" className="form-control" placeholder="Detalhar criança" /> 
                   </div>
 
                   <div className="form-group" >
@@ -159,7 +194,7 @@ class addKid extends Component {
                       <button className="button button-danger">Cancelar</button>
                     </Link>
 
-                    <button onClick ={this.handleUpload} className="button button-success">Adicionar</button>
+                    <button onClick ={this.createdKid} className="button button-success">Adicionar</button>
                     
                   </div>
 
