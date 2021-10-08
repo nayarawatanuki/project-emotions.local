@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PrincipalMenu from "./pages/Principal-Menu";
+import PrincipalMenu from "../src/frontend/pages/Principal-Menu/index";
 class App extends Component {
   render() {
     return (

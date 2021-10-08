@@ -1,10 +1,11 @@
 const express = require('express');
-const routesKid = require('./routes/Kids');
-//const routesKidPhoto = require('./routes/KidPhoto');
-const routesActivity = require('./routes/Activities');
 const path = require("path");
 const cors = require('cors');
-require('./db');
+require('./backend/db');
+
+const routesKid = require('./backend/routes/Kids');
+//const routesKidPhoto = require('./routes/KidPhoto');
+const routesActivity = require('./backend/routes/Activities');
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
     "/photos",
-    express.static(path.resolve(__dirname, "../temp/uploads"))
+    express.static(path.resolve(__dirname, "../src/backend/temp/uploads"))
 );
 
 app.use(routesKid);

@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import App from './App';
 
-import PrincipalMenu from './pages/Principal-Menu/index';
+import PrincipalMenu from './frontend/pages/Principal-Menu/index';
 
-import KidAcess from './pages/KidAcess/Menu/index';
-import TaskImgWords from './pages/KidAcess/TaskImgWords/index';
+import KidAcess from './frontend/pages/KidAcess/Menu/index';
+import TaskImgWords from './frontend/pages/KidAcess/TaskImgWords/index';
 
 //Pages PsycAcess
-import PsycAcess from './pages/PsycAcess/Menu/index';
-import Kids from './pages/PsycAcess/Kids/index';
-import Activities from './pages/PsycAcess/Activities/index';
-import addKid  from './pages/PsycAcess/addKid/index';
-import addActivity  from './pages/PsycAcess/addActivity/index';
-//import ImagesWords  from './pages/PsycAcess/ImagesWords/index';
+import PsycAcess from './frontend/pages/PsycAcess/Menu/index';
+import Kids from './frontend/pages/PsycAcess/Kids/index';
+import Activities from './frontend/pages/PsycAcess/Activities/index';
+import addKid  from './frontend/pages/PsycAcess/addKid/index';
+import addActivity  from './frontend/pages/PsycAcess/addActivity/index';
+//import ImagesWords  from './frontend/pages/PsycAcess/ImagesWords/index';
 
 ReactDOM.render(
   <BrowserRouter>
