@@ -28,7 +28,7 @@ module.exports = {
 
         const { treatment, code, name, rate, birth, parent, note } = req.body;
         
-        console.log('controller update criança', req.params, req.body)
+        console.log('controller update photo kid', req.params, req.body)
         try {
             const kidPhoto = await KidPhoto.update(
                 { treatment, code, name, rate, birth, parent, note },
@@ -51,7 +51,7 @@ module.exports = {
     async delete(req, res) {
         const { id } = req.params;
 
-        console.log('controller delete criança', req.params)
+        console.log('controller delete photo kid', req.params)
         try {
             const kidPhoto = await KidPhoto.destroy({ 
                 where: {
