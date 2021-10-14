@@ -1,0 +1,14 @@
+.tr:hover {
+  cursor: pointer;
+  background-color: #91e3ee;
+}
+
+.input{
+  width: 90px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  cursor: default;
+  text-align: center;
+  background-color: transparent;
+}

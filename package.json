@@ -1,0 +1,59 @@
+{
+  "name": "project-emotions",
+  "version": "2.0",
+  "private": true,
+  "description": "TCC",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "react-scripts start",
+    "startBack": "node src/server.js",
+    "build": "react-scripts build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "project-emotions"
+  },
+  "author": "nayarawatanuki",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1004.0",
+    "axios": "^0.22.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "filesize": "^8.0.3",
+    "lodash": "^4.17.21",
+    "multer": "^1.4.3",
+    "multer-s3": "^2.8.0",
+    "mysql2": "^2.3.0",
+    "node": "^16.10.0",
+    "nodemon": "^2.0.13",
+    "react-circular-progressbar": "^2.0.4",
+    "react-dropzone": "^11.4.2",
+    "react-icons": "^4.3.1",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
+    "sequelize": "^6.7.0",
+    "sequelize-cli": "^6.2.0",
+    "styled-components": "^5.3.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.10.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
