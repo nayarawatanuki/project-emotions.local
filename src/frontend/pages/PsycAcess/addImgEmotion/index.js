@@ -17,17 +17,17 @@ class addImgEmotion extends Component {
     uploadedFile: undefined
   };
 
-  handleUpload = photo => {
-    const addedFiles = photo.map(photo => ({
-      photo,
+  handleUpload = image => {
+    const addedFiles = image.map(image => ({
+      image,
       id: uniqueId(),
-      name: photo.name,
-      readableSize: filesize(photo.size),
-      preview: URL.createObjectURL(photo),
+      name: image.name,
+      readableSize: filesize(image.size),
+      preview: URL.createObjectURL(image),
       Progress: 0,
       uploaded: false,
       error: false,
-      url: photo.url,
+      url: image.url,
     }));
 
     //mostra preview
@@ -54,13 +54,14 @@ class addImgEmotion extends Component {
     var data = new FormData();
 
     data.append('kid_id', kid_id);
-    data.append('image', this.state.uploadedFile.photo, this.state.uploadedFile.name);
+    
     data.append('emotion', document.getElementById('emotion').value);
     
     data.append('response1', document.getElementById('response1').value);
     data.append('response2', document.getElementById('response2').value);
     data.append('response3', document.getElementById('response3').value);
     data.append('respCorrect', document.getElementById('respCorrect').value);
+    data.append('image', this.state.uploadedFile.image, this.state.uploadedFile.name);
 
     for (var key of data.entries()) {
       console.log(key[0] + ': ' + key[1]);

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('activities', { 
+    await queryInterface.createTable('activities_to_kids', { 
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,29 +16,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      emotion: {
-        type: Sequelize.STRING,
+      activities_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      response1: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      response2: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      response3: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      respCorrect: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      image: {
-        type: Sequelize.STRING,
-        allowNull: false,
+        references: { model: 'activities', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       createdAt: {
         type: Sequelize.DATE,

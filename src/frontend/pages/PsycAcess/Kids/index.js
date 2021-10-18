@@ -123,7 +123,7 @@ function Kids() {
                 <GlobalStyle />
             </Container>            
         </App>
-    );
+    )
 }
 
 export default Kids;

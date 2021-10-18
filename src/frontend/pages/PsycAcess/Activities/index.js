@@ -1,27 +1,26 @@
 import React, { useState, useEffect} from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
-import ActivityRow from './ActivityRow'
+import ActivityList from '../../../components/ActivityList'
 import './style.css';
+import { useKidContext } from "../../../context/kidContext";
 
 function App() {
 
     const [list, setList] = useState([]);
-    const [listKids, setListKids] = useState([]);
+    const {kid_id} = useKidContext();
 
     useEffect(() => {
-        Axios.get('http://localhost:3000/listActivities')
+        Axios.get(`http://localhost:3000/kids/${kid_id}/listActivities`)
         .then((response) => {
-          setList(response.data)
+            console.log({activity: response.data})
+            setList(response.data)
+        }).catch((error) => {
+            console.error('error', error)
         });
     },[]);
-
-    useEffect(() => {
-        Axios.get('http://localhost:3000/listKids')
-        .then((response) => {
-          setListKids(response.data)
-        });
-    },[]);
+    
+    console.log({ list })
 
     async function updateActivity({id, name, type, emotion}){ 
 
@@ -108,17 +107,20 @@ function App() {
                                         <tr>
                                             <th></th>
                                             <th>id</th>
-                                            <th>nome</th>
-                                            <th>tipo</th>
-                                            <th>emoção</th>
-                                            <th>ação</th>
+                                            <th>kid_id</th>
+                                            <th>emotion</th>
+                                            <th>response1</th>
+                                            <th>response2</th>
+                                            <th>response3</th>
+                                            <th>respCorrect</th>
+                                            <th>image</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         {list.map((activity) => {
                                             return (   
-                                                <ActivityRow 
+                                                <ActivityList
                                                     activity={activity} 
                                                     updateActivity={updateActivity} 
                                                     deleteActivity={deleteActivity} 
@@ -131,31 +133,8 @@ function App() {
                         </div>
                         
 
-                        <div className="form-group-vinc">
-                            <div className="form-group">
-                                <label htmlFor="kids">Criança:</label>
-                                <div className="form-row">
-                                    <select id="kids" className="form-control mr-sm-2 col-4">
-                                        {listKids.map((kid) => {
-                                            return (
-                                                <option selected>{kid.name}</option> 
-                                            )
-                                            })}
-                                    </select>
-                                    <Link to="/Menu">
-                                        <button type="submit" className="btn btn-outline-success d-inline-block" width="auto">
-                                            <i className="fas fa-sync"></i>
-                                        </button>
-                                    </Link>
-
-                                    <Link to="/ImagesWords">
-                                        <button type="submit" className="btn btn-outline-success d-inline-block" width="auto">
-                                            <i className="fas fa-plus"></i>
-                                        </button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                        
+            
                     </form>
                 </div>            
             </body>

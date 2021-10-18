@@ -9,7 +9,7 @@ const Act = require('../models/Activity');
 const Kid = require('../models/Kid');
 
 //FUNCTIONS
-routes.get('/listActivity', Activity.list);
+routes.get('/kids/:kid_id/listActivities', Activity.list);
 routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image"), (req, res) => {
 
     const { location: image = " "} = req.file;
@@ -21,7 +21,7 @@ routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image")
         }
 
     const activity = Act.create(
-        { kid_id, image, emotion, response1, response2, response3, respCorrect },
+        { kid_id, emotion, response1, response2, response3, respCorrect, image },
         (err, result) => {
             if (err) {
               console.log(err);
@@ -30,7 +30,7 @@ routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image")
                   message: "erro"
                }) 
             } else {
-                if (req.file + req.body) {
+                if (req.body + req.file) {
                     return res.json({
                         err: false,
                         message: "cadastrado com sucesso."

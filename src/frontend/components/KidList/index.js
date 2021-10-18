@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, createContext } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useKidContext } from "../../context/kidContext";
 
 import { Preview } from './styles';
 
 function KidList({ kid, updateKid, deleteKid }){ 
 
+    const {setKid_id} = useKidContext();
     const [photo, setPhoto] = useState(kid.photo);
     const [treatment, setTreatment] = useState(kid.treatment);
     const [code, setCode] = useState(kid.code);
@@ -14,7 +16,7 @@ function KidList({ kid, updateKid, deleteKid }){
     const [parent, setParent] = useState(kid.parent);
     const [note, setNote] = useState(kid.note);
     
-    const [id, setId] = useState("");
+    //const [id, setId] = useState(kid.id);
     const [isReadOnly, setReadOnly] = useState(true);
     
     return(
@@ -47,7 +49,6 @@ function KidList({ kid, updateKid, deleteKid }){
             readOnly={isReadOnly}
           />
         </td>
-
         <td>
           <input
             id="name"
@@ -58,7 +59,6 @@ function KidList({ kid, updateKid, deleteKid }){
             readOnly={isReadOnly}
           />
         </td>
-
         <td>
           <input
             id="rate"
@@ -69,7 +69,6 @@ function KidList({ kid, updateKid, deleteKid }){
             readOnly={isReadOnly}
           />
         </td>
-
         <td>
           <input
             id="birth"
@@ -80,7 +79,6 @@ function KidList({ kid, updateKid, deleteKid }){
             readOnly={isReadOnly}
           />
         </td>
-
         <td>
           <input
             id="parent"
@@ -91,7 +89,6 @@ function KidList({ kid, updateKid, deleteKid }){
             readOnly={isReadOnly}
           />
         </td>
-
         <td>
           <input
             id="note"
@@ -112,6 +109,18 @@ function KidList({ kid, updateKid, deleteKid }){
               }}
             >
               <i className="fas fa-plus"></i>
+            </button>
+          </Link>
+
+          <Link to={{ pathname: "/Activities", search: `${kid.id}`}}>
+            <button
+              id="list"
+              className="btn btn-sm btn-info d-inline-block mr-1"
+              onClick={(e) => {
+                setKid_id(`${kid.id}`)
+              }}
+            >
+              <i className="fas fa-list"></i>
             </button>
           </Link>
         </td>

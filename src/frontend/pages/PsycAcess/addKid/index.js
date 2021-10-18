@@ -162,7 +162,10 @@ class addKid extends Component {
                   <Link to="/Kids">
                     <button className="button button-danger">Cancelar</button>
                   </Link>
-                  <button onClick ={this.createdKid} className="button button-success">Adicionar</button>
+
+                  <Link to="/Kids">
+                    <button onClick ={this.createdKid} className="button button-success">Adicionar</button>
+                  </Link>
                 </div>
               </div>
             </form>

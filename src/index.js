@@ -15,25 +15,28 @@ import Activities from './frontend/pages/PsycAcess/Activities/index';
 import addKid  from './frontend/pages/PsycAcess/addKid/index';
 import addActivity  from './frontend/pages/PsycAcess/addActivity/index';
 import addImgEmotion  from './frontend/pages/PsycAcess/addImgEmotion/index';
+import KidProvider  from './frontend/context/kidContext';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/" exact={true} component={App} />
-      <Route path="/Main" exact={true} component={PrincipalMenu} />
+  <KidProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact={true} component={App} />
+        <Route path="/Main" exact={true} component={PrincipalMenu} />
 
-      <Route path="/KidAcess" exact={true} component={KidAcess} />
-      <Route path="/TaskImgEmotion" exact={true} component={TaskImgEmotion} />
+        <Route path="/KidAcess" exact={true} component={KidAcess} />
+        <Route path="/TaskImgEmotion" exact={true} component={TaskImgEmotion} />
 
-      <Route path="/PsycAcess" exact={true} component={PsycAcess} />,
-      <Route path="/Kids" exact={true} component={Kids} />,
-      <Route path="/Activities" exact={true} component={Activities} />,
-      <Route path="/addKid" exact={true} component={addKid} />,
-      <Route path="/addActivity" exact={true} component={addActivity} />,      
-      <Route path="/addImgEmotion" exact={true} component={addImgEmotion} />,      
+        <Route path="/PsycAcess" exact={true} component={PsycAcess} />,
+        <Route path="/Kids" exact={true} component={Kids} />,
+        <Route path="/Activities" exact={true} component={Activities} />,
+        <Route path="/addKid" exact={true} component={addKid} />,
+        <Route path="/addActivity" exact={true} component={addActivity} />,      
+        <Route path="/addImgEmotion" exact={true} component={addImgEmotion} />,      
 
 
-    </Switch>
-  </BrowserRouter>,
+      </Switch>
+    </BrowserRouter>
+  </KidProvider>,
   document.getElementById('root')
 );
