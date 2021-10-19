@@ -7,6 +7,7 @@ import { Preview } from './styles';
 function KidList({ kid, updateKid, deleteKid }){ 
 
     const {setKid_id} = useKidContext();
+    const [id, setId] = useState(kid.id)
     const [photo, setPhoto] = useState(kid.photo);
     const [treatment, setTreatment] = useState(kid.treatment);
     const [code, setCode] = useState(kid.code);

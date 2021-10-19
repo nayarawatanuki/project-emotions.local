@@ -68,7 +68,7 @@ class addKid extends Component {
       onUploadProgress: e => {
         const progress = parseInt(Math.round((e.loaded * 100) / e.total));
 
-        this.updateFile(uploadedFile.id, {
+        this.updateFile(uploadedFilePreview.id, {
           progress,
         })
       }
