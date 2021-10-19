@@ -123,15 +123,8 @@ function ActivityList({ activity, updateActivity, deleteActivity }){
           <i className="fas fa-trash-alt"></i>
         </button>
       </td>
-    </tr>
-    
-        
-    
+    </tr>   
   )
 }
-  
-
-
-
 
 export default ActivityList;
