@@ -4,13 +4,13 @@ const routes = express.Router();
 const multer = require('multer');
 const multerConfig = require('../config/multer');
 
-const Activity = require('../controllers/ActivityController');
-const Act = require('../models/Activity');
+const TaskController = require('../controllers/TaskController');
+const Task = require('../models/Task');
 const Kid = require('../models/Kid');
 
 //FUNCTIONS
-routes.get('/kids/:kid_id/listActivities', Activity.list);
-routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image"), (req, res) => {
+routes.get('/kids/:kid_id/listTasks', TaskController.list);
+routes.post('/kids/:kid_id/createdTask', multer(multerConfig).single("image"), (req, res) => {
 
     const { location: image = " "} = req.file;
     const { emotion, response1, response2, response3, respCorrect, kid_id} = req.body;
@@ -20,7 +20,7 @@ routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image")
             return res.status(400).json({ error: 'Kid not found'});
         }
 
-    const activity = Act.create(
+    const task = Task.create(
         { kid_id, emotion, response1, response2, response3, respCorrect, image },
         (err, result) => {
             if (err) {
@@ -45,10 +45,10 @@ routes.post('/kids/kid_id/createdActivity', multer(multerConfig).single("image")
         }
     );
     
-    return res.json(activity);
+    return res.json(task);
     
 })
-routes.put('/updatedActivity/:id', Activity.update);
-routes.delete('/deletedActivity/:id', Activity.delete);
+routes.put('/updatedTask/:id', TaskController.update);
+routes.delete('/deletedTask/:id', TaskController.delete);
 
 module.exports = routes;

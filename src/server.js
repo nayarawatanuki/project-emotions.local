@@ -6,7 +6,7 @@ const cors = require('cors');
 require('./backend/db');
 
 const routesKid = require('./backend/routes/Kids');
-const routesActivity = require('./backend/routes/Activity');
+const routesTask = require('./backend/routes/Tasks');
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use(routesKid);
-app.use(routesActivity);
+app.use(routesTask);
 
 app.listen(3000, () => {
     console.log('server start');

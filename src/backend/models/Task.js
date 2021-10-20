@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 
-class Activity extends Model {
+class Task extends Model {
     static init(sequelize) {
         super.init({
             emotion: DataTypes.STRING,
@@ -19,4 +19,4 @@ class Activity extends Model {
     }
 }
 
-module.exports = Activity;
+module.exports = Task;

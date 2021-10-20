@@ -1,5 +1,5 @@
 const Kid = require('../models/Kid');
-const Activity = require('../models/Activity');
+const Task = require('../models/Task');
 
 module.exports = {
 
@@ -7,10 +7,10 @@ module.exports = {
         const { kid_id } = req.params;
 
         const kid = await Kid.findByPk(kid_id, {
-            include: { association: 'activities'}
+            include: { association: 'tasks'}
         });
 
-        return res.json(kid.activities);
+        return res.json(kid.tasks);
     },
 
     async insert(req, res) {
@@ -23,25 +23,25 @@ module.exports = {
             return res.status(400).json({ error: 'Kid not found'});
         }
         
-        const activity = await Activity.create(
+        const task = await Task.create(
             { emotion, response1, response2, response3, respCorrect, image, kid_id }
         );
-        return res.json(activity);
+        return res.json(task);
     },
 
     async update(req, res) {
         const { id } = req.params;
         const { type } = req.body;
 
-        console.log('controller update activicty', req.params, req.body);
+        console.log('controller update task', req.params, req.body);
         try {
-            const activity = await Activity.update(
+            const task = await Task.update(
                 { type },
                 {where: {
                     id: id
                 }}
             );
-            return res.json(activity);
+            return res.json(task);
         }catch(error){
             console.log(error);
                 res.json({error: true});
@@ -51,14 +51,14 @@ module.exports = {
     async delete(req, res) {
         const { id } = req.params;
 
-        console.log('controller delete activity', req.params)
+        console.log('controller delete task', req.params)
         try {
-            const activity = await Activity.destroy({ 
+            const task = await Task.destroy({ 
                 where: {
                     id: id
                 } 
             });
-            return res.json(activity);
+            return res.json(task);
         }catch(error){
             console.log(error);
                 res.json({error: true});

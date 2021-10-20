@@ -2,14 +2,14 @@ const Sequelize = require('sequelize');
 const dbConfig = require('../config/db');
 
 const Kid = require('../models/Kid')
-const Activity = require('../models/Activity')
+const Task = require('../models/Task')
 
 const connect = new Sequelize(dbConfig);
 
 Kid.init(connect);
-Activity.init(connect);
+Task.init(connect);
 
 Kid.associate(connect.models);
-Activity.associate(connect.models)
+Task.associate(connect.models)
 
 module.exports = connect;

@@ -67,7 +67,7 @@ class addImgEmotion extends Component {
       console.log(key[0] + ': ' + key[1]);
     }
 
-    api.post('/kids/kid_id/createdActivity', data, {
+    api.post('/kids/:kid_id/createdTask', data, {
 
       //deixa a bolinha verde
       onUploadProgress: e => {

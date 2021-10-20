@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('activities_to_kids', { 
+    await queryInterface.createTable('kid_tasks', { 
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -16,10 +16,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      activities_id: {
+      task_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'activities', key: 'id' },
+        references: { model: 'tasks', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
@@ -35,6 +35,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('activities');
+    await queryInterface.dropTable('kid_tasks');
   }
 };

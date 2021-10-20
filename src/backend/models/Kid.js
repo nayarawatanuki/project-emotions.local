@@ -17,7 +17,7 @@ class Kid extends Model {
     }
 
     static associate(models) {
-        this.hasMany(models.Activity, { foreignKey: 'kid_id', as: 'activities'});
+        this.hasMany(models.Task, { foreignKey: 'kid_id', as: 'tasks'});
     }
 }
 

@@ -11,7 +11,7 @@ function App() {
     const {kid_id} = useKidContext();
 
     useEffect(() => {
-        Axios.get(`http://localhost:3000/kids/${kid_id}/listActivities`)
+        Axios.get(`http://localhost:3000/kids/${kid_id}/listTasks`)
         .then((response) => {
             console.log({activity: response.data})
             setList(response.data)
@@ -25,7 +25,7 @@ function App() {
     async function updateActivity({id, name, type, emotion}){ 
 
         if(name !== "" && type !== "" && emotion !== ""){
-            await Axios.put(`http://localhost:3000/updatedActivity/${id}`,
+            await Axios.put(`http://localhost:3000/updatedTask/${id}`,
               { name, type, emotion }
             )
             .then(response => {
@@ -47,7 +47,7 @@ function App() {
     async function deleteActivity(id){
         console.log("id delete", id);
 
-        await Axios.delete(`http://localhost:3000/deletedActivity/${id}`)
+        await Axios.delete(`http://localhost:3000/deletedTask/${id}`)
         .then((response) => {
             console.log(response.data);
             window.alert("Atividade apagada!");
@@ -130,11 +130,7 @@ function App() {
                                     </tbody>
                                 </table>                                
                             </div>
-                        </div>
-                        
-
-                        
-            
+                        </div>            
                     </form>
                 </div>            
             </body>

@@ -1,11 +1,28 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
+import api from 'axios';
 
 import GlobalStyle from '../../../styles/global';
 import { App, Container, Content } from './styles';
 
-class TaskImgWords extends Component {
-  render() {
+import ActivityValues from '../../../components/ActivityValues'
+import { useKidContext } from "../../../context/kidContext";
+
+function TaskImgWords() {
+
+  const [list, setList] = useState([]);
+  const {kid_id} = useKidContext();
+
+  useEffect(() => {
+    api.get(`http://localhost:3000/kids/1/listTasks`)
+    .then((response) => {
+        console.log({activity: response.data})
+        setList(response.data)
+    }).catch((error) => {
+        console.error('error', error)
+    });
+  },[]);
+  
     function allowDrop(e) {
       e.preventDefault();
     }
@@ -31,47 +48,22 @@ class TaskImgWords extends Component {
               <Container>
                   <Content>
                     <form> 
-                        <div>
-                          <img alt="Hulk" display="center"
-                            onDragOver={(e)=> allowDrop(e)} 
-                            onDrop={(e)=> drop(e)} align="center"  
-                            src="https://rollingstone.uol.com.br/media/_versions/legacy/2015/img-1031213-ira-em-estado-bruto_widemd.jpg" />
-                        </div>
-          
-                        
-                        <div class="div-label" >
-                          <div>
-                              <label id="emotion1" name="emotion1" 
-                                value="TRISTE"
-                                draggable={true} 
-                                onDragStart={(e)=> drag(e)}
-                                onDragEnd={(e)=> {window.alert('Ops, tente outra vez.') }}>TRISTE
-                              </label>
-                          </div>  
-        
-                          <div>
-                            <label id="emotion2" name="emotion2" 
-                              value="FELIZ" 
-                              draggable={true} onDragStart={(e)=> drag(e)}
-                              onDragEnd={(e)=> window.alert('Ops, tente outra vez.')}>FELIZ
-                            </label>
-                          </div>
-        
-                          <div>
-                            <label id="emotion3" name="emotion3" 
-                              value="BRAVO"
-                              draggable={true} onDragStart={(e)=> drag(e)} 
-                              onDragEnd={(e)=> window.alert('PARABÉNS!!!')}>BRAVO
-                            </label>
-                          </div>
-                        </div>
-                      
+                      {list.map((activity) => {
+                        return (   
+                            <ActivityValues
+                                activity={activity} 
+                                allowDrop={allowDrop} 
+                                drag={drag}
+                                drop={drop}
+                            />
+                        );
+                      })}
                     </form>
                   </Content>
                   <GlobalStyle />
               </Container>
           </App>                
       )
-  }
 }
+
 export default TaskImgWords;
