@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 import api from '../../../services/api'
 import Upload from '../../../components/Upload';
-import FileList from '../../../components/FileList';
+import FileList from '../../../components/PsycAcess/FileList';
 
 class addKid extends Component {
   state = {
@@ -49,14 +49,16 @@ class addKid extends Component {
   createdKid = () => {
     var data = new FormData();
 
-    data.append('photo', this.state.uploadedFile.photo, this.state.uploadedFile.name);
+    
     data.append('treatment', document.getElementById('treatment').value);
-    data.append('code', document.getElementById('code').value);
     data.append('name', document.getElementById('name').value);
+    data.append('user', document.getElementById('user').value);
+    data.append('code', document.getElementById('code').value);
     data.append('rate', document.getElementById('rate').value);
     data.append('birth', document.getElementById('birth').value);
     data.append('parent', document.getElementById('parent').value);
     data.append('note', document.getElementById('note').value);
+    data.append('photo', this.state.uploadedFile.photo, this.state.uploadedFile.name);
 
     for (var key of data.entries()) {
       console.log(key[0] + ': ' + key[1]);
@@ -114,6 +116,12 @@ class addKid extends Component {
               </div>       
 
               <div className="form-infoKid" style={{marginTop: "4%"}}>
+
+                <div className="form-group">
+                  <label htmlFor="user"> User </label>
+                  <input type="text" id="user" name="user" className="form-control" placeholder="Digite o nome da criança" />
+                </div>
+
                 <div className="form-group" >
                   <label htmlFor="code">Código de Acesso</label>
                   <input type="number" id="code" name="code" className="form-control" placeholder="Defina um código de acesso" defaultValue={parseInt(Math.random()*10000)} />

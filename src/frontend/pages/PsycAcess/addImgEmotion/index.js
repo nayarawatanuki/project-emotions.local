@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 
 import api from '../../../services/api'
 import Upload from '../../../components/Upload';
-import FileList from '../../../components/FileList';
+import FileList from '../../../components/PsycAcess/FileList';
 
 class addImgEmotion extends Component {
   state = {
@@ -55,6 +55,7 @@ class addImgEmotion extends Component {
 
     data.append('kid_id', kid_id);
     
+    data.append('name', document.getElementById('name').value);
     data.append('emotion', document.getElementById('emotion').value);
     
     data.append('response1', document.getElementById('response1').value);
@@ -109,6 +110,10 @@ class addImgEmotion extends Component {
                 <div className="form-group">
                   
                 </div>
+              </div>
+              <div className="form-group" >
+                <label htmlFor="name">Nome</label>
+                <input type="text" id="name" name="name" className="form-control" placeholder="Nome da Atividade" />
               </div>
               <div className="form-group" >
                 <label htmlFor="emotion">Emoção</label>

@@ -28,3 +28,13 @@ export const Content = styled.div`
     padding: 30px;
     
 `;
+
+export const Table = styled.table`
+    float: auto;
+    width: auto;
+    height: auto;
+    resize: auto;
+    margin-top: 4%;
+    display: auto;
+    text-align: center;
+`;

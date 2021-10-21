@@ -8,13 +8,25 @@ module.exports = {
         return res.json(kids);
     },
 
+    async login(req, res) {
+
+        const {id, user, code} = req.body;
+
+        const kid = await Kid.findOne(id && user && code);
+        if(!kid) {
+            return res.status(400).json({ error: 'Kid not found'});
+        }
+
+        return res.json(kid.id);
+    },
+
     async insert(req, res) {
 
         const { originalname: key, filename: photo } = req.file;
-        const { treatment, code, name, rate, birth, parent, note } = req.body;
+        const { treatment, user, code, name, rate, birth, parent, note } = req.body;
 
         const kid = await Kid.create(
-            { photo, treatment, code, name, rate, birth, parent, note });
+            { photo, treatment, user, code, name, rate, birth, parent, note });
 
         return res.json(kid);
     },

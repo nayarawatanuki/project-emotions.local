@@ -3,14 +3,15 @@ const { Model, DataTypes } = require('sequelize');
 class Kid extends Model {
     static init(sequelize) {
         super.init({
-            photo: DataTypes.STRING,
             treatment: DataTypes.STRING,
-            code: DataTypes.STRING,
             name: DataTypes.STRING,
+            user: DataTypes.STRING,
+            code: DataTypes.STRING,
             rate: DataTypes.STRING,
             birth: DataTypes.STRING,
             parent: DataTypes.STRING,
             note: DataTypes.STRING,
+            photo: DataTypes.STRING,
         }, {
             sequelize
         })

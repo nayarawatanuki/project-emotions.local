@@ -5,18 +5,20 @@ import api from 'axios';
 import GlobalStyle from '../../../styles/global';
 import { App, Container, Content } from './styles';
 
-import ActivityValues from '../../../components/ActivityValues'
+import TaskValues from '../../../components/KidAcess/TaskValues'
 import { useKidContext } from "../../../context/kidContext";
+import { useTaskContext } from "../../../context/taskContext";
 
-function TaskImgWords() {
+function TaskImgEmotion() {
 
   const [list, setList] = useState([]);
-  const {kid_id} = useKidContext();
+  const {kid_name} = useKidContext();
+  const {task_id} = useTaskContext();
 
   useEffect(() => {
-    api.get(`http://localhost:3000/kids/1/listTasks`)
+    api.get(`http://localhost:3000/tasks/${kid_name}/${task_id}/taskListOne`)
     .then((response) => {
-        console.log({activity: response.data})
+        console.log({task: response.data})
         setList(response.data)
     }).catch((error) => {
         console.error('error', error)
@@ -48,10 +50,10 @@ function TaskImgWords() {
               <Container>
                   <Content>
                     <form> 
-                      {list.map((activity) => {
+                      {list.map((task) => {
                         return (   
-                            <ActivityValues
-                                activity={activity} 
+                            <TaskValues
+                                task={task} 
                                 allowDrop={allowDrop} 
                                 drag={drag}
                                 drop={drop}
@@ -66,4 +68,4 @@ function TaskImgWords() {
       )
 }
 
-export default TaskImgWords;
+export default TaskImgEmotion;

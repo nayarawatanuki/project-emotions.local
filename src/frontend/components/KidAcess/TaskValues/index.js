@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-function ActivityValues({ activity, allowDrop, drag, drop}) { 
+function ActivityValues({ task, allowDrop, drag, drop}) { 
 
-    const [emotion, setEmotion] = useState(activity.emotion);
-    const [response1, setResponse1] = useState(activity.response1);
-    const [response2, setResponse2] = useState(activity.response2);
-    const [response3, setResponse3] = useState(activity.response3);
-    const [respCorrect, setRespCorrect] = useState(activity.respCorrect);
-    const [image, setImage] = useState(activity.image);
+    const [emotion, setEmotion] = useState(task.emotion);
+    const [response1, setResponse1] = useState(task.response1);
+    const [response2, setResponse2] = useState(task.response2);
+    const [response3, setResponse3] = useState(task.response3);
+    const [respCorrect, setRespCorrect] = useState(task.respCorrect);
+    const [image, setImage] = useState(task.image);
 
     return(
         <div>

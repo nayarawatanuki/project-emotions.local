@@ -9,19 +9,20 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
       },
-      photo: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
       treatment: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      code: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      name: {
+      user: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      code: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -40,6 +41,10 @@ module.exports = {
       note: {
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      photo: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       createdAt: {
         type: Sequelize.DATE,

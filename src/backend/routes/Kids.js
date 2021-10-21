@@ -9,17 +9,19 @@ const Kids = require('../controllers/KidController');
 //FUNCTIONS
 routes.get('/listKids', Kids.list);
 
+routes.get('/login', Kids.login);
+
 routes.post('/createdKid', multer(multerConfig).single("photo"), (req, res) => {
     
     
     const { location: photo = " "} = req.file;
-    const { treatment, code, name, rate, birth, parent, note } = req.body;
+    const { treatment, name, user, code, rate, birth, parent, note } = req.body;
     //console.log("test ", req.body)
 
     const Kid = require('../models/Kid');
 
     const kid = Kid.create(
-        { photo, treatment, code, name, rate, birth, parent, note },
+        { treatment, name, user, code, rate, birth, parent, note, photo },
         (err, result) => {
             if (err) {
               console.log(err);

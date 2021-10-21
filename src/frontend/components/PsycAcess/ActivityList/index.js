@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Axios from 'axios';
 import { Link } from "react-router-dom";
-import { useKidContext } from "../../context/kidContext";
+import { useKidContext } from "../../../context/kidContext";
 import { Preview } from './styles';
 
 function ActivityList({ activity, updateActivity, deleteActivity }){ 

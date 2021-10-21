@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import Axios from 'axios';
 import { Link } from 'react-router-dom'
-import ActivityList from '../../../components/ActivityList'
+import ActivityList from '../../../components/PsycAcess/ActivityList'
 import './style.css';
 import { useKidContext } from "../../../context/kidContext";
 

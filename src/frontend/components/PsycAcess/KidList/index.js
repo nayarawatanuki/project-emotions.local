@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useKidContext } from "../../context/kidContext";
+import { useKidContext } from "../../../context/kidContext";
 
 import { Preview } from './styles';
 
@@ -10,6 +10,7 @@ function KidList({ kid, updateKid, deleteKid }){
     const [id, setId] = useState(kid.id)
     const [photo, setPhoto] = useState(kid.photo);
     const [treatment, setTreatment] = useState(kid.treatment);
+    const [user, setUser] = useState(kid.user);
     const [code, setCode] = useState(kid.code);
     const [name, setName] = useState(kid.name);
     const [rate, setRate] = useState(kid.rate);
@@ -17,7 +18,6 @@ function KidList({ kid, updateKid, deleteKid }){
     const [parent, setParent] = useState(kid.parent);
     const [note, setNote] = useState(kid.note);
     
-    //const [id, setId] = useState(kid.id);
     const [isReadOnly, setReadOnly] = useState(true);
     
     return(
@@ -37,6 +37,16 @@ function KidList({ kid, updateKid, deleteKid }){
             type="text"
             defaultValue={treatment}
             onChange={(e) => setTreatment(e.target.value)}
+            readOnly={isReadOnly}
+          />
+        </td>
+        <td>
+          <input
+            id="code"
+            className="input"
+            type="text"
+            defaultValue={user}
+            onChange={(e) => setUser(e.target.value)}
             readOnly={isReadOnly}
           />
         </td>

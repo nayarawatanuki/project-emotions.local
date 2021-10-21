@@ -6,6 +6,7 @@ import App from './App';
 import PrincipalMenu from './frontend/pages/Principal-Menu/index';
 
 import KidAcess from './frontend/pages/KidAcess/Menu/index';
+import Tasks from './frontend/pages/KidAcess/Tasks/index';
 import TaskImgEmotion from './frontend/pages/KidAcess/TaskImgEmotion/index';
 
 //Pages PsycAcess
@@ -25,6 +26,7 @@ ReactDOM.render(
         <Route path="/Main" exact={true} component={PrincipalMenu} />
 
         <Route path="/KidAcess" exact={true} component={KidAcess} />
+        <Route path="/Tasks" exact={true} component={Tasks} />
         <Route path="/TaskImgEmotion" exact={true} component={TaskImgEmotion} />
 
         <Route path="/PsycAcess" exact={true} component={PsycAcess} />,

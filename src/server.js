@@ -7,6 +7,7 @@ require('./backend/db');
 
 const routesKid = require('./backend/routes/Kids');
 const routesTask = require('./backend/routes/Tasks');
+const routesTaskView = require('./backend/routes/TaskView');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 
 app.use(routesKid);
 app.use(routesTask);
+app.use(routesTaskView);
 
 app.listen(3000, () => {
     console.log('server start');

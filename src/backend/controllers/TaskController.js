@@ -13,9 +13,19 @@ module.exports = {
         return res.json(kid.tasks);
     },
 
+    async taskListOne(req, res) {
+        const { task_id } = req.params;
+
+        const task = await Task.findByPk(task_id, /*{
+            include: { association: 'kids'}
+        }*/);
+
+        return res.json(task);
+    },
+
     async insert(req, res) {
         const { kid_id } = req.params;
-        const { emotion, response1, response2, response3, respCorrect } = req.body;
+        const { name, emotion, response1, response2, response3, respCorrect } = req.body;
         const { image } = req.file; 
 
         const kid = await Kid.findByPk(kid_id);
@@ -24,7 +34,7 @@ module.exports = {
         }
         
         const task = await Task.create(
-            { emotion, response1, response2, response3, respCorrect, image, kid_id }
+            { name, emotion, response1, response2, response3, respCorrect, image, kid_id }
         );
         return res.json(task);
     },

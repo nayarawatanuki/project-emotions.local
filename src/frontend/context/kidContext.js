@@ -4,13 +4,17 @@ export const KidContext = React.createContext()
 
 const KidProvider = ({ children }) => {
     const [kid_id, setKid_id] = useState();
+    const [kid_name, setKid_name] = useState();
 
-    console.log("kid ",kid_id)
+    console.log("kid ", kid_id)
     return (
         <KidContext.Provider
             value={{
                 kid_id,
-                setKid_id
+                setKid_id,
+
+                kid_name,
+                setKid_name
             }}
         >
             {children}

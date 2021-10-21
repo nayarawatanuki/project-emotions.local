@@ -5,7 +5,7 @@ import GlobalStyle from '../../../styles/global';
 import { App, Container, Content, Table } from './styles.js';
 
 import api from 'axios';
-import KidList from '../../../components/KidList'
+import KidList from '../../../components/PsycAcess/KidList'
 import './style.css';
 
 function Kids() {
@@ -95,6 +95,7 @@ function Kids() {
                                 <tr>
                                     <th>foto</th>
                                     <th>tratamento</th>
+                                    <th>user</th>
                                     <th>codigo</th>
                                     <th>nome</th>
                                     <th>grau</th>

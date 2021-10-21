@@ -3,6 +3,7 @@ const { Model, DataTypes } = require('sequelize');
 class Task extends Model {
     static init(sequelize) {
         super.init({
+            name: DataTypes.STRING,
             emotion: DataTypes.STRING,
             image: DataTypes.STRING,
             response1: DataTypes.STRING,

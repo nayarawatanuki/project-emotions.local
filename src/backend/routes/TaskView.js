@@ -9,11 +9,12 @@ const Task = require('../models/Task');
 const Kid = require('../models/Kid');
 
 //FUNCTIONS
-routes.get('/kids/:kid_id/listTasks', TaskController.list);
+//routes.get('/tasks/:kid_name/:task_id/taskListOne', TaskController.taskListOne);
+routes.get('/tasks/:kid_id/:kid_name/listTasks', TaskController.list);
 routes.post('/kids/:kid_id/createdTask', multer(multerConfig).single("image"), (req, res) => {
 
     const { location: image = " "} = req.file;
-    const { name, emotion, response1, response2, response3, respCorrect, kid_id} = req.body;
+    const { emotion, response1, response2, response3, respCorrect, kid_id} = req.body;
     
     const kid = Kid.findByPk(kid_id);
         if(!kid) {
@@ -21,7 +22,7 @@ routes.post('/kids/:kid_id/createdTask', multer(multerConfig).single("image"), (
         }
 
     const task = Task.create(
-        { kid_id, name, emotion, response1, response2, response3, respCorrect, image },
+        { kid_id, emotion, response1, response2, response3, respCorrect, image },
         (err, result) => {
             if (err) {
               console.log(err);
