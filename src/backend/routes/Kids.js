@@ -9,7 +9,7 @@ const Kids = require('../controllers/KidController');
 //FUNCTIONS
 routes.get('/listKids', Kids.list);
 
-routes.get('/login', Kids.login);
+routes.post('/login', Kids.login);
 
 routes.post('/createdKid', multer(multerConfig).single("photo"), (req, res) => {
     

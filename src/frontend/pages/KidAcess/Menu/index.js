@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import api from 'axios';
 
 import GlobalStyle from '../../../styles/global';
@@ -11,25 +11,32 @@ function KidAcess() {
 
     const {setKid_name} = useKidContext();
     const {setKid_id} = useKidContext();
-    const [id, setId] = useState();
     const [user, setUser] = useState();
-
-    function login() {
-        var data = new FormData();
-
-        data.append('id', document.getElementById('id').value);
-        data.append('user', document.getElementById('user').value);
-        data.append('code', document.getElementById('code').value);
+    const [code, setCode] = useState();
+    const history = useHistory();
     
-        for (var key of data.entries()) {
-          console.log(key[0] + ': ' + key[1]);
-        }
+    async function login(){    
+
+        await api.post(
+            'http://localhost:3000/login',
+            { user, code }
+        )
+        .then(response => 
+            setKid_id(response.data),
+            window.alert('deu certo')
+            
+        ).catch(() => {
+            console.error('errado')
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await login(); 
     
-        api.get('http://localhost:3000/login', data)
-        .then((response) => {
-            response.data
-        });
-      }
+        setKid_name(user);
+        history.push('/Tasks');
+    }
     
     return (
         <App>
@@ -41,35 +48,40 @@ function KidAcess() {
                 <Content>
                     <form> 
                         <h1>Vamos começar?</h1>
-                        
-                        <div className="form-group">
-                            <label htmlFor="id">id</label>
-                            <input type="text" id="id" name="id" className="form-control" placeholder="id" onChange={(e) => setId(e.target.value)}/>
-                        </div>
 
                         <div className="form-group">
                             <label htmlFor="user">User</label>
-                            <input type="text" id="user" name="user" className="form-control" placeholder="usuario" onChange={(e) => setUser(e.target.value)}/>
+                            <input type="text" 
+                                id="user" 
+                                name="user" 
+                                className="form-control" 
+                                placeholder="usuario" 
+                                onChange={(e) => setUser(e.target.value)}
+                            />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="code">Senha</label>
-                            <input type="text" id="code" name="code" className="form-control" placeholder="senha" /> 
+                            <input type="text" 
+                                id="code" 
+                                name="code" 
+                                className="form-control" 
+                                placeholder="senha" 
+                                onChange={(e) => setCode(e.target.value)}
+                            /> 
                         </div>
                         
-                        <Link to={{ pathname: "/Tasks", search: `${user}`}}>
-                            <button
+                        
+                        
+                        <button
                             id="list"
                             className="button button-info btn-lg btn-block float-center"
-                            onClick={(e) => {
-                                setKid_id(id),
-                                setKid_name(user),
-                                login
-                            }}
-                            >
+                            onClick={handleSubmit}
+                        >
                             Entrar
-                            </button>
-                        </Link>
+                        </button>
+                        
+                        
                     </form>
                 </Content>
                 <GlobalStyle />

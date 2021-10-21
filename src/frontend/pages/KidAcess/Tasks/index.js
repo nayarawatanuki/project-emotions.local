@@ -14,7 +14,7 @@ function App() {
     useEffect(() => {
         api.get(`http://localhost:3000/tasks/${kid_id}/${kid_name}/listTasks`)
         .then((response) => {
-            console.log({task: response.data})
+            console.log({tasks: response.data})
             setList(response.data)
         }).catch((error) => {
             console.error('error', error)

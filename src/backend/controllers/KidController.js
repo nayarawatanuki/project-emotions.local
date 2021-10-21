@@ -10,11 +10,14 @@ module.exports = {
 
     async login(req, res) {
 
-        const {id, user, code} = req.body;
+        const {user, code} = req.body;
 
-        const kid = await Kid.findOne(id && user && code);
-        if(!kid) {
-            return res.status(400).json({ error: 'Kid not found'});
+        const kid = await Kid.findOne({ where: { user: user, code: code} });
+        if (kid === null) {
+            console.log('Not found!');
+        } else {
+            //console.log(kid instanceof Kid); // true
+            console.log(kid.id); // 'My Title'
         }
 
         return res.json(kid.id);
