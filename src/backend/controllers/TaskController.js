@@ -14,11 +14,16 @@ module.exports = {
     },
 
     async taskListOne(req, res) {
-        const { task_id } = req.params;
 
-        const task = await Task.findByPk(task_id, /*{
-            include: { association: 'kids'}
-        }*/);
+        const {task_id} = req.params;
+
+        const task = await Task.findOne({ where: { id: task_id } });
+        if (task === null) {
+            console.log('Not found!');
+        } else {
+            //console.log(kid instanceof Kid); // true
+            console.log(task); // 'My Title'
+        }
 
         return res.json(task);
     },

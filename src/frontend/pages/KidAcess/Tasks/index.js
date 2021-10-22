@@ -1,11 +1,11 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import api from 'axios';
 import { Link } from 'react-router-dom'
 import TaskList from '../../../components/KidAcess/TaskList'
 import './style.css';
 import { useKidContext } from "../../../context/kidContext";
 
-function App() {
+function Tasks() {
 
     const [list, setList] = useState([]);
     const {kid_id} = useKidContext();
@@ -20,13 +20,9 @@ function App() {
             console.error('error', error)
         });
     },[]);
-    
-    console.log({ list })
   
     return (
         <div className="App">
-            
-                
             <nav className="navbar navbar-light bg-light">
                 <Link to="/">
                     <button type="button" className="btn btn-primary">Voltar</button>
@@ -63,7 +59,7 @@ function App() {
                                 <tbody>
                                     {list.map((task) => {
                                         return (   
-                                            <TaskList
+                                            <TaskList key={task.id}
                                                 task={task} 
                                             />
                                         );
@@ -78,4 +74,4 @@ function App() {
     );
 }
 
-export default App;
+export default Tasks;

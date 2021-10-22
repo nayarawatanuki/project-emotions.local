@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useKidContext } from "../../../context/kidContext";
+import { useTaskContext } from "../../../context/taskContext";
 
 function TaskList({ task }){ 
 
   
   const {kid_id} = useKidContext();
+  const {setTask_id} = useTaskContext();
   const [name, setName] = useState(task.name);
-  const [id, setId] = useState(task.id)
+  //const [id, setId] = useState(task.id)
   
   return(
     <tr id="rows" className="tr" padding="checkbox">
@@ -21,7 +23,7 @@ function TaskList({ task }){
             id="list"
             className="btn btn-sm btn-info d-inline-block mr-1"
             onClick={(e) => {
-              setId(`${task.id}`)
+              setTask_id(`${task.id}`)
             }}
           >
             <i className="fas fa-play"></i>

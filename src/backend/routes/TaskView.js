@@ -9,7 +9,7 @@ const Task = require('../models/Task');
 const Kid = require('../models/Kid');
 
 //FUNCTIONS
-//routes.get('/tasks/:kid_name/:task_id/taskListOne', TaskController.taskListOne);
+routes.get('/:kid_name/tasks/taskListOne/:task_id', TaskController.taskListOne);
 routes.get('/tasks/:kid_id/:kid_name/listTasks', TaskController.list);
 routes.post('/kids/:kid_id/createdTask', multer(multerConfig).single("image"), (req, res) => {
 

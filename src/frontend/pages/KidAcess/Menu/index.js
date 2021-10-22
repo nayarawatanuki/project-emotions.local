@@ -23,10 +23,10 @@ function KidAcess() {
         )
         .then(response => 
             setKid_id(response.data),
-            window.alert('deu certo')
+            //window.alert('deu certo')
             
-        ).catch(() => {
-            console.error('errado')
+        ).catch((error) => {
+            console.error('error', error)
         })
     }
 
