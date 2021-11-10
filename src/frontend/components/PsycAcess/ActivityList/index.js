@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import './style.css';
 import { Preview, Input } from './styles';
 
-import api from '../../../services/api'
-import { useKidContext } from "../../../context/kidContext";
-
-
-function ActivityList({ activity, result, deleteActivity }){ 
-  
-  const {kid_id} = useKidContext();
+function ActivityList({ activity, result, deleteActivity }){
 
   const [name, setName] = useState(activity.name);
   const [emotion, setEmotion] = useState(activity.emotion);
@@ -31,7 +25,7 @@ function ActivityList({ activity, result, deleteActivity }){
         />  
       </td>
       
-      <td>
+      <td justify = "content">
         <Input
           id="name"
           className="input"
@@ -65,20 +59,19 @@ function ActivityList({ activity, result, deleteActivity }){
       </td>
 
       <td>
-          <div className="result" fit-content='true'>
-              <button
-                  className="btn btn-sm btn-info d-inline-block mr-1"
-                  onClick={(e) =>{e.preventDefault()}}
-              >
-                  <i className="fas fa-list-ol"></i>
-              </button>
-              <div className="resultInfo">
-                resposta1: {response1} <br/>
-                resposta2: {response2} <br/>
-                resposta3: {response3}
-              </div>
-          </div>
-        
+        <div className="result" fit-content='true'>
+            <button
+                className="btn btn-sm btn-info d-inline-block mr-1"
+                onClick={(e) =>{e.preventDefault()}}
+            >
+                <i className="fas fa-list-ol"></i>
+            </button>
+            <div className="resultInfo">
+              resposta1: {response1} <br/>
+              resposta2: {response2} <br/>
+              resposta3: {response3}
+            </div>
+        </div>
       </td>
       
       <td>
@@ -99,7 +92,7 @@ function ActivityList({ activity, result, deleteActivity }){
         )}
       </td>
 
-      <td>        
+      <td>
         <button
           className="btn btn-sm btn-danger d-inline-block"
           onClick={(e) => {

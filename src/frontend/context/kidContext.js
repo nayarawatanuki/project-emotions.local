@@ -5,16 +5,18 @@ export const KidContext = React.createContext()
 const KidProvider = ({ children }) => {
     const [kid_id, setKid_id] = useState();
     const [kid_name, setKid_name] = useState();
+    const [kid_photo, setKid_photo] = useState();
 
     console.log("kid ", kid_id);
 
     useEffect(() => {
         const savedKid = window.sessionStorage.getItem('kid');
         if(savedKid) {
-            const {id, name} = JSON.parse(savedKid);
-            console.log('id: ', id, name);
+            const {id, name, photo} = JSON.parse(savedKid);
+            console.log('id: ', id, name, photo);
             setKid_id(id);
             setKid_name(name);
+            setKid_photo(photo);
         }
     }, [])
 
@@ -31,8 +33,15 @@ const KidProvider = ({ children }) => {
         const savedKidJSON = JSON.parse(savedKid) || {}
         window.sessionStorage.setItem('kid', JSON.stringify({...savedKidJSON, name}));
         setKid_name(name);
-    } 
+    }
 
+    function savePhoto(photo) {
+        const savedKid = window.sessionStorage.getItem('kid');
+        const savedKidJSON = JSON.parse(savedKid) || {}
+        window.sessionStorage.setItem('kid', JSON.stringify({...savedKidJSON, photo}));
+        setKid_photo(photo);
+    }
+    
     return (
         <KidContext.Provider
             value={{
@@ -40,7 +49,10 @@ const KidProvider = ({ children }) => {
                 saveId,
 
                 kid_name,
-                saveName
+                saveName,
+
+                kid_photo,
+                savePhoto
             }}
         >
             {children}

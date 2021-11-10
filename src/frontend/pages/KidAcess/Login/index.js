@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import api from '../../../services/api';
 
 import GlobalStyle from '../../../global/styles';
@@ -13,7 +13,7 @@ function KidAcess() {
     const [user, setUser] = useState();
     const [code, setCode] = useState();
     const history = useHistory();
-    
+
     async function login(){    
 
         await api.post(
@@ -21,9 +21,7 @@ function KidAcess() {
             { user, code }
         )
         .then(response => 
-            saveId(response.data),
-            //window.alert('deu certo')
-            
+            saveId(response.data)            
         ).catch((error) => {
             console.error('error', error)
         })
@@ -83,6 +81,6 @@ function KidAcess() {
             </Container>
         </App>
     )
-    
 }
+
 export default KidAcess;

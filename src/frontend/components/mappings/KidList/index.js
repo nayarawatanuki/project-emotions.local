@@ -7,7 +7,7 @@ import { useKidContext } from "../../../context/kidContext";
 
 function KidList({ kid, updateKid, deleteKid }){ 
 
-    const {saveId, saveName} = useKidContext();
+    const {saveId, saveName, savePhoto} = useKidContext();
     const [id, setId] = useState(kid.id)
     const [photo, setPhoto] = useState(kid.photo);
     const [treatment, setTreatment] = useState(kid.treatment);
@@ -131,6 +131,7 @@ function KidList({ kid, updateKid, deleteKid }){
               onClick={() => {
                 saveId(`${kid.id}`)
                 saveName(`${kid.name}`)
+                savePhoto(`${kid.photo}`)
               }}
             >
               <i className="fas fa-list"></i>

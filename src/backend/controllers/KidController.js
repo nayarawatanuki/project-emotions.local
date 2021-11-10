@@ -17,6 +17,24 @@ module.exports = {
         return res.json(kids);
     },
 
+    async listOne(req, res) {
+
+        const {kid_id} = req.params;
+
+        const kid = await Kid.findOne({
+            where: {id: kid_id}
+        });
+        if (kid === null) {
+            console.log('Not found!');
+        } else {
+            //console.log(kid instanceof Kid); // true
+            console.log(kid); // 'My Title'
+        }
+
+
+        return res.json(kid);
+    },
+
     async login(req, res) {
 
         const {

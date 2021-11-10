@@ -10,19 +10,31 @@ import { Link } from 'react-router-dom';
 
 function Tasks() {
 
+    const [kid, setKid] = useState([]);
     const [list, setList] = useState([]);
-    const {kid_id} = useKidContext();
-    const {kid_name} = useKidContext();
+    const {kid_id, kid_name, kid_photo, savePhoto} = useKidContext();
 
     useEffect(() => {
+        if(kid_id && kid_name){
+        api.get(`/${kid_id}/listKid`)
+        .then((response) => {
+            console.log({kids: response.data})
+            setKid([response.data])
+        }).catch((error) => {
+            console.error('error', error)
+        });}
+    },[kid_id, kid_name]);
+
+    useEffect(() => {
+        if(kid_id && kid_name){
         api.get(`/tasks/${kid_id}/${kid_name}/listTasks`)
         .then((response) => {
             console.log({tasks: response.data})
             setList(response.data)
         }).catch((error) => {
             console.error('error', error)
-        });
-    },[]);
+        });}
+    },[kid_id, kid_name]);
   
     return (
         <App>
@@ -38,10 +50,15 @@ function Tasks() {
                 <Content>
                     <form >
                         <div className="form-row">
-                            <div className="chip">
-                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
-                                {kid_name}
-                            </div>
+                            {kid.map((kid) => {
+                                savePhoto(kid.photo);
+                                return(
+                                    <div className="chip" key={kid.id}>
+                                        <img src={kid.photo}></img>
+                                        {kid.name}
+                                    </div>
+                                )
+                            })}
                         </div>
 
                         <div style={{marginTop: '4%'}}>
@@ -51,6 +68,7 @@ function Tasks() {
                                         <th hidden={true}>id</th>
                                         <th hidden={true}>kid_id</th>
                                         <th>tarefas</th>
+                                        <th>status</th>
                                     </tr>
                                 </thead>
 

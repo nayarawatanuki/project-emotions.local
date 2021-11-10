@@ -4,8 +4,7 @@
 }
 
 .result {
-    position: relative;
-    margin: 30px;
+    position: sticky;
     display: inline-block;
 }
 
@@ -14,18 +13,18 @@
 }
 
 .resultInfo {
-    position: absolute;
+    position: sticky;
     visibility: hidden;
     font-size: 14px;
     width: auto;
     background: black;
     color: #fff;
     text-align: center;
-    padding: 7px ;
+    padding: 10px ;
     border-radius: 6px;
     bottom: 100%;
     left: 50%;
-    margin-left: -100px;
+    margin-left: -20px;
     margin-bottom: 5px;
 }
 

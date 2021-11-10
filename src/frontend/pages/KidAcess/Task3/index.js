@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
+import swal from '@sweetalert/with-react'
 import api from '../../../services/api';
 
+import './style.css';
 import GlobalStyle from '../../../global/styles';
 import { App, Container, Content } from './styles';
 
@@ -93,11 +95,10 @@ function Task3() {
       console.log("Task atualizada!");
     });
   }
-  
 
   const sendTask = async () => {
     await create();
-    updateTask();
+    //updateTask();
     history.push('/Tasks');
   }
 
@@ -119,9 +120,19 @@ function Task3() {
                   <img display="center"
                     onDragOver={(e)=> allowDrop(e)} 
                     onDrop={()=> {                        
-                      if( response === task.emotion ) {
+                      if( response === task.emotion ) {                        
                         stopTime();
-                        swal({title: 'PARABÉNS!!!', icon: "https://i.pinimg.com/originals/63/9f/52/639f523a4803c6f00f51401b3158d452.gif"})
+                        swal({
+                          content: (
+                            <div className="pyro" >
+                          
+                              <div className="before"></div>
+                              <div className="after"></div>
+                            </div>
+                          ),
+                          title: 'PARABÉNS!!!', 
+                          icon: "https://i.pinimg.com/originals/63/9f/52/639f523a4803c6f00f51401b3158d452.gif"
+                        })
                         .then(() => {
                           sendTask();
                         })

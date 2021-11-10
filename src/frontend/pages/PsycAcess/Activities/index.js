@@ -11,8 +11,7 @@ import ActivityList from '../../../components/PsycAcess/ActivityList';
 function TasksKid() {
 
     const [list, setList] = useState([]);
-    const {kid_id} = useKidContext();
-    const {kid_name} = useKidContext();
+    const {kid_id, kid_name, kid_photo} = useKidContext();
 
     console.log({kid_id, kid_name})
 
@@ -92,7 +91,7 @@ function TasksKid() {
                 <Content>
                     <form encType='multipar/form-data' fit-content="true">
                         <div className="chip">
-                            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" />
+                            <img src={kid_photo} alt="Person" />
                             {kid_name}
                         </div>
                         <Link to="/addActivity">
@@ -100,8 +99,8 @@ function TasksKid() {
                                 <i className="fas fa-plus"></i>
                             </button>
                         </Link>
-                        <div className="form-row">
-                        <Table className= "table table-responsive table-selectable">
+
+                        <Table className= "table table-responsive table-selectable" >
                             <thead>
                                 <tr>
                                     <th>imagem</th>
@@ -126,7 +125,6 @@ function TasksKid() {
                                 })}
                             </tbody>
                         </Table>
-                        </div>
                     </form>
                 </Content>
                 <GlobalStyle />
