@@ -36,11 +36,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      respCorrect: {
+      image: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      image: {
+      status: {
         type: Sequelize.STRING,
         allowNull: false,
       },

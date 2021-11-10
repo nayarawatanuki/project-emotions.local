@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
 export const TaskContext = React.createContext()
 
@@ -6,11 +6,29 @@ const TaskProvider = ({ children }) => {
     const [task_id, setTask_id] = useState();
 
     console.log("task ", task_id)
+
+    useEffect(() => {
+        const savedTask = window.sessionStorage.getItem('task');
+        if(savedTask) {
+            const {id} = JSON.parse(savedTask);
+            console.log('id: ', id);
+            setTask_id(id);
+        }
+    }, [])
+
+    function saveId(id) {
+        const savedTask = window.sessionStorage.getItem('task');
+        const savedKidJSON = JSON.parse(savedTask) || {}
+        
+        window.sessionStorage.setItem('kid', JSON.stringify({...savedKidJSON, id}));
+        setTask_id(id);
+    }
+
     return (
         <TaskContext.Provider
             value={{
                 task_id,
-                setTask_id
+                saveId
             }}
         >
             {children}

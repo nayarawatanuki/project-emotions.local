@@ -48,3 +48,16 @@ export const Preview = styled.div`
     background-position: 50% 50%;
     margin-right: 10px;
 `;
+
+export const Input = styled.input.attrs({
+    
+})`
+    justify-content: center;
+    width: 150px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    cursor: default;
+    text-align: center;
+    background-color: transparent;
+`;

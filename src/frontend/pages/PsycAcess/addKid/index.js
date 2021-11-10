@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
-import GlobalStyle from '../../../styles/global';
+import GlobalStyle from '../../../global/styles';
 import { App, Container, Content } from './styles.js';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-import api from '../../../services/api'
+import api from '../../../services/api/index';
 import Upload from '../../../components/Upload';
-import FileList from '../../../components/PsycAcess/FileList';
+import FileList from '../../../components/mappings/FileList';
 
 class addKid extends Component {
   state = {
@@ -32,30 +32,32 @@ class addKid extends Component {
 
     //mostra preview
     this.setState({
-      uploadedFilePreview: this.state.uploadedFilePreview.concat(addedFiles),
+      uploadedFilePreview: addedFiles,
       uploadedFile: addedFiles[0]
     });
   }
 
   updateFile = (id, data) => {
-    this.setState({ uploadedFilePreview: this.state.uploadedFilePreview.map(uploadedFile => { 
-      return id === uploadedFilePreview.id 
-        ? { ...uploadedFilePreview, ...data } 
-        : uploadedFilePreview;
+    this.setState({ 
+      uploadedFilePreview: this.state.uploadedFilePreview.map(uploadedFile => { 
+        return id === uploadedFile.id 
+          ? { ...uploadedFile, ...data } 
+          : uploadedFile;
       })
     });
   }
 
   createdKid = () => {
+    
     var data = new FormData();
 
-    
     data.append('treatment', document.getElementById('treatment').value);
     data.append('name', document.getElementById('name').value);
     data.append('user', document.getElementById('user').value);
     data.append('code', document.getElementById('code').value);
     data.append('rate', document.getElementById('rate').value);
     data.append('birth', document.getElementById('birth').value);
+    
     data.append('parent', document.getElementById('parent').value);
     data.append('note', document.getElementById('note').value);
     data.append('photo', this.state.uploadedFile.photo, this.state.uploadedFile.name);
@@ -64,28 +66,7 @@ class addKid extends Component {
       console.log(key[0] + ': ' + key[1]);
     }
 
-    api.post('createdKid', data, {
-
-      //deixa a bolinha verde
-      onUploadProgress: e => {
-        const progress = parseInt(Math.round((e.loaded * 100) / e.total));
-
-        this.updateFile(uploadedFilePreview.id, {
-          progress,
-        })
-      }
-
-    }).then(response => {
-      this.updateFile(uploadedFile.id, {
-        uploaded: true,
-        id: response.data.id,
-        ur: response.data.url
-      })
-    }).catch(() => {
-      this.updateFile(uploadedFile.id, {
-        error: true
-      })
-    })
+    api.post('createdKid', data)
   }
 
   render() {

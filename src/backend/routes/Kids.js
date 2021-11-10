@@ -2,7 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 const multer = require('multer');
-const multerConfig = require('../config/multer');
+const multerConfig = require('../connection/AWS/kidPhoto/multer');
 
 const Kids = require('../controllers/KidController');
 
@@ -13,40 +13,24 @@ routes.post('/login', Kids.login);
 
 routes.post('/createdKid', multer(multerConfig).single("photo"), (req, res) => {
     
-    
-    const { location: photo = " "} = req.file;
+    const {key: key,  location: photo} = req.file;
     const { treatment, name, user, code, rate, birth, parent, note } = req.body;
     //console.log("test ", req.body)
 
     const Kid = require('../models/Kid');
 
     const kid = Kid.create(
-        { treatment, name, user, code, rate, birth, parent, note, photo },
-        (err, result) => {
-            if (err) {
-              console.log(err);
-              return res.status(400).json({
-                  err: true,
-                  message: "erro"
-               }) 
-            } else {
-                if (req.body + req.file) {
-                    return res.json({
-                        err: false,
-                        message: "cadastrado com sucesso."
-                    });
-                }
-
-                res.send("Valores inseridos");
-                
-
-                //console.log("foto", req.file);
-            }
-        }
-    );
-    
-    return res.json(kid);
-    
+        { treatment, name, user, code, rate, birth, parent, note, key, photo }
+    ).then((response) => {
+        return res.json(response);
+        
+    }).catch(() => {
+        console.log(err);
+            return res.status(400).json({
+            err: true,
+            message: "erro"
+        }) 
+    });
 })
 
 routes.put('/updatedKid/:id', Kids.update);

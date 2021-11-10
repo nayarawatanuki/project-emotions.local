@@ -11,6 +11,7 @@ class Kid extends Model {
             birth: DataTypes.STRING,
             parent: DataTypes.STRING,
             note: DataTypes.STRING,
+            key: DataTypes.STRING,
             photo: DataTypes.STRING,
         }, {
             sequelize

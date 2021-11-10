@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import api from 'axios';
-import { Link } from 'react-router-dom'
-import TaskList from '../../../components/KidAcess/TaskList'
-import './style.css';
+import api from '../../../services/api';
+
+import GlobalStyle from '../../../global/styles';
+import { App, Container, Content, Table } from './styles';
+
+import TaskList from '../../../components/mappings/TaskList';
 import { useKidContext } from "../../../context/kidContext";
+import { Link } from 'react-router-dom';
 
 function Tasks() {
 
@@ -12,7 +15,7 @@ function Tasks() {
     const {kid_name} = useKidContext();
 
     useEffect(() => {
-        api.get(`http://localhost:3000/tasks/${kid_id}/${kid_name}/listTasks`)
+        api.get(`/tasks/${kid_id}/${kid_name}/listTasks`)
         .then((response) => {
             console.log({tasks: response.data})
             setList(response.data)
@@ -22,7 +25,7 @@ function Tasks() {
     },[]);
   
     return (
-        <div className="App">
+        <App>
             <nav className="navbar navbar-light bg-light">
                 <Link to="/">
                     <button type="button" className="btn btn-primary">Voltar</button>
@@ -30,24 +33,19 @@ function Tasks() {
                 <h5 className="navbar-brand float-center">Crianças</h5>
                 <h1> </h1>
             </nav>
-            
-        
-            
 
-            <div className="backgroud-Activities float-center">
-
-                <form className="form-Activities fit-content">
-                    <div className="form-row">
-                        <div className="chip">
-                            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
-                            {kid_name}
+            <Container>
+                <Content>
+                    <form >
+                        <div className="form-row">
+                            <div className="chip">
+                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
+                                {kid_name}
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="form-group-tb" style={{marginTop: '4%'}}>
-                        
-                        <div className="form-row" text-align="center">
-                            <table className="table table-responsive table-selectable table-striped" float="auto">
+                        <div style={{marginTop: '4%'}}>
+                            <Table className= "table table-responsive table-selectable">
                                 <thead>
                                     <tr>
                                         <th hidden={true}>id</th>
@@ -65,12 +63,13 @@ function Tasks() {
                                         );
                                     })}
                                 </tbody>
-                            </table>                                
-                        </div>
-                    </div>            
-                </form>
-            </div>           
-        </div>  
+                            </Table>                                
+                        </div>            
+                    </form>
+                </Content>
+                <GlobalStyle />
+            </Container>   
+        </App>
     );
 }
 

@@ -42,6 +42,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      key: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       photo: {
         type: Sequelize.STRING,
         allowNull: true,

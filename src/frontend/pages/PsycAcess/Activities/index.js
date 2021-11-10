@@ -1,31 +1,50 @@
 import React, { useState, useEffect} from 'react';
-import Axios from 'axios';
-import { Link } from 'react-router-dom'
-import ActivityList from '../../../components/PsycAcess/ActivityList'
-import './style.css';
-import { useKidContext } from "../../../context/kidContext";
+import { Link } from 'react-router-dom';
 
-function App() {
+import GlobalStyle from '../../../global/styles';
+import { App, Container, Content, Table } from './styles';
+
+import api from '../../../services/api';
+import { useKidContext } from '../../../context/kidContext';
+import ActivityList from '../../../components/PsycAcess/ActivityList';
+
+function TasksKid() {
 
     const [list, setList] = useState([]);
     const {kid_id} = useKidContext();
+    const {kid_name} = useKidContext();
+
+    console.log({kid_id, kid_name})
 
     useEffect(() => {
-        Axios.get(`http://localhost:3000/kids/${kid_id}/listTasks`)
+        console.log('entrou')
+        if(kid_id && kid_name){
+        api.get(`/tasks/${kid_id}/${kid_name}/listTasks`)
         .then((response) => {
             console.log({activity: response.data})
             setList(response.data)
         }).catch((error) => {
             console.error('error', error)
-        });
-    },[]);
-    
-    console.log({ list })
+        });}
+    },[kid_id, kid_name]);
+
+    const [result, setResult] = useState([]);
+  
+    useEffect(() => {
+        if(kid_id){
+        api.get(`/tasks/${kid_id}/listTaskResult`)
+        .then((response) => {
+        console.log({results: response.data});
+        setResult(response.data);
+        }).catch((error) => {
+            console.error('error', error) 
+        });}
+    }, [kid_id]);
 
     async function updateActivity({id, name, type, emotion}){ 
 
         if(name !== "" && type !== "" && emotion !== ""){
-            await Axios.put(`http://localhost:3000/updatedTask/${id}`,
+            await api.put(`/updatedTask/${id}`,
               { name, type, emotion }
             )
             .then(response => {
@@ -47,7 +66,7 @@ function App() {
     async function deleteActivity(id){
         console.log("id delete", id);
 
-        await Axios.delete(`http://localhost:3000/deletedTask/${id}`)
+        await api.delete(`/deletedTask/${id}`)
         .then((response) => {
             console.log(response.data);
             window.alert("Atividade apagada!");
@@ -61,81 +80,59 @@ function App() {
     }
   
     return (
-        <div className="App">
-            <header className="App-header">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <nav className="navbar navbar-light bg-light">
-                    <Link to="/">
-                        <button type="button" className="btn btn-primary">Voltar</button>
-                    </Link>
-                    <h5 className="navbar-brand float-center">Crianças</h5>
-                    <h1> </h1>
-                </nav>
-            </header>
-        
-            <body>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
-
-                <div className="backgroud-Activities float-center">
-
-                    <form className="form-Activities fit-content">
-                        <div className="form-row">
-                            <div className="chip">
-                                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" width="96" height="96"></img>
-                                Atividades
-                            </div>
-                            <Link to="/addActivity">
-                                <button type="submit" className="btn btn-outline-info d-inline-block" width="auto">
-                                    <i className="fas fa-plus"></i>
-                                </button>
-                            </Link>
+        <App>
+            <nav className="navbar navbar-light bg-light">
+                <Link to="/Kids">
+                    <button type="button" className="button button-info">Voltar</button>
+                </Link>
+                <h5 className="navbar-brand float-center">Atividades</h5>
+                <h1> </h1>
+            </nav>
+            <Container>
+                <Content>
+                    <form encType='multipar/form-data' fit-content="true">
+                        <div className="chip">
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Person" />
+                            {kid_name}
                         </div>
-
-                        <div className="form-group-tb">
-                            <div className="form-group">
-                                <div className="form-row">
-                                    <input className="search mr-sm-2 col-4" width="auto" type="search" placeholder="Pesquisar" aria-label="Pesquisar"></input>
-                                    <button className="btn btn-outline-info d-inline-block" width="auto" type="submit">
-                                        <i className="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div className="form-row" text-align="center">
-                                <table className="table table-responsive table-selectable table-striped" float="auto">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>id</th>
-                                            <th>kid_id</th>
-                                            <th>emotion</th>
-                                            <th>response1</th>
-                                            <th>response2</th>
-                                            <th>response3</th>
-                                            <th>respCorrect</th>
-                                            <th>image</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {list.map((activity) => {
-                                            return (   
-                                                <ActivityList
-                                                    activity={activity} 
-                                                    updateActivity={updateActivity} 
-                                                    deleteActivity={deleteActivity} 
-                                                />
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>                                
-                            </div>
-                        </div>            
+                        <Link to="/addActivity">
+                            <button type="submit" className="btn btn-outline-info d-inline-block" width="auto">
+                                <i className="fas fa-plus"></i>
+                            </button>
+                        </Link>
+                        <div className="form-row">
+                        <Table className= "table table-responsive table-selectable">
+                            <thead>
+                                <tr>
+                                    <th>imagem</th>
+                                    <th>nome</th>
+                                    <th>emoção</th>
+                                    <th>status</th>
+                                    <th>opções de resposta</th>
+                                    <th>resultado</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {list.map((activity, index) => {
+                                    return (
+                                        <ActivityList key={activity.id}
+                                            activity={activity}
+                                            result = {result[index]} 
+                                            updateActivity={updateActivity} 
+                                            deleteActivity={deleteActivity} 
+                                        />
+                                    );
+                                })}
+                            </tbody>
+                        </Table>
+                        </div>
                     </form>
-                </div>            
-            </body>
-        </div>  
+                </Content>
+                <GlobalStyle />
+            </Container>
+        </App>  
     );
 }
 
-export default App;
+export default TasksKid;

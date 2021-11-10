@@ -27,39 +27,36 @@ module.exports = {
 
         return res.json(task);
     },
-
-    async insert(req, res) {
-        const { kid_id } = req.params;
-        const { name, emotion, response1, response2, response3, respCorrect } = req.body;
-        const { image } = req.file; 
-
-        const kid = await Kid.findByPk(kid_id);
-        if(!kid) {
-            return res.status(400).json({ error: 'Kid not found'});
-        }
-        
-        const task = await Task.create(
-            { name, emotion, response1, response2, response3, respCorrect, image, kid_id }
-        );
-        return res.json(task);
-    },
-
+    
     async update(req, res) {
-        const { id } = req.params;
-        const { type } = req.body;
 
-        console.log('controller update task', req.params, req.body);
+        const {
+            task_id
+        } = req.params;
+        const {
+            name, emotion, response1, response2, response3, status
+        } = req.body;
+
+        console.log('controller update kid', req.params, req.body)
         try {
-            const task = await Task.update(
-                { type },
-                {where: {
-                    id: id
-                }}
-            );
+            const task = await Task.update({
+                name, emotion, response1, response2, response3, status
+            },
+
+                {
+                    where: {
+                        id: task_id
+                    }
+                }
+            )
+
             return res.json(task);
-        }catch(error){
-            console.log(error);
-                res.json({error: true});
+
+        } catch (error) {
+            console.log(error.message);
+            res.json({
+                error: true
+            });
         }
     },
 

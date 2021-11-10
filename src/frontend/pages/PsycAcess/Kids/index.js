@@ -1,46 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 
-import GlobalStyle from '../../../styles/global';
+import GlobalStyle from '../../../global/styles';
 import { App, Container, Content, Table } from './styles.js';
 
-import api from 'axios';
-import KidList from '../../../components/PsycAcess/KidList'
-import './style.css';
+import api from '../../../services/api';
+import KidList from '../../../components/mappings/KidList'
 
 function Kids() {
     const [kids, setKids] = useState([]);
 
     useEffect(() => {
-        api.get('http://localhost:3000/listKids')
+        api.get('/listKids')
         .then((response) => {
           setKids(response.data)
         });
     }, []);
 
-    async function updateKid({
-        id,
-        treatment,
-        photo,
-        code,
-        name,
-        rate,
-        birth,
-        parent,
-        note,
-    }){
+    async function updateKid(){
 
         if(name !== "" && rate !== "" && birth !== "" && parent !== "" && note !== ""){
-            await api.put(`http://localhost:3000/updatedKid/${id}`,
-              { treatment, code, name, rate, birth, parent, note }
+            await api.put(`/updatedKid/${id}`,
+              { treatment, name, user, code, rate, birth, parent, note }
             )
             .then(response => {
                 console.log(response);
                 console.log(JSON.stringify({
                     "tratamento": treatment,
-                    "photo": photo,
+                    "nome": name,
+                    "user": user,
                     "codigo": code,
-                    "nome": name, 
                     "grau": rate,
                     "data de nascimento": birth,
                     "responsavel": parent,
@@ -57,7 +46,7 @@ function Kids() {
 
     async function deleteKid(id){
         console.log("id delete", id);
-        await api.delete(`http://localhost:3000/deletedKid/${id}`)
+        await api.delete(`/deletedKid/${id}`)
         .then((response) => {
             console.log(response.data);
             window.alert("Criança apagada!");
@@ -90,7 +79,7 @@ function Kids() {
                         <Link to="/addKid">
                             <button  className="btn btn-outline-info">+</button>
                         </Link>
-                        <Table className= "table table-responsive">
+                        <Table className= "table table-responsive table-selectable">
                             <thead>
                                 <tr>
                                     <th>foto</th>

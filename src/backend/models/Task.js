@@ -5,18 +5,19 @@ class Task extends Model {
         super.init({
             name: DataTypes.STRING,
             emotion: DataTypes.STRING,
-            image: DataTypes.STRING,
             response1: DataTypes.STRING,
             response2: DataTypes.STRING,
             response3: DataTypes.STRING,
-            respCorrect: DataTypes.STRING,
+            image: DataTypes.STRING,
+            status: DataTypes.STRING,
         }, {
             sequelize
         })
     }
 
     static associate(models) {
-        this.belongsTo(models.Kid, { foreignKey: 'kid_id', as: 'kid'});
+        this.belongsTo(models.Kid, { foreignKey: 'kid_id', as: 'kids'});
+        this.hasOne(models.Result, { foreignKey: 'task_id', as: 'results'});
     }
 }
 

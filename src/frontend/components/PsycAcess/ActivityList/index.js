@@ -1,31 +1,49 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+
+import './style.css';
+import { Preview, Input } from './styles';
+
+import api from '../../../services/api'
 import { useKidContext } from "../../../context/kidContext";
-import { Preview } from './styles';
 
-function ActivityList({ activity, updateActivity, deleteActivity }){ 
 
+function ActivityList({ activity, result, deleteActivity }){ 
+  
   const {kid_id} = useKidContext();
+
+  const [name, setName] = useState(activity.name);
   const [emotion, setEmotion] = useState(activity.emotion);
   const [response1, setResponse1] = useState(activity.response1);
   const [response2, setResponse2] = useState(activity.response2);
   const [response3, setResponse3] = useState(activity.response3);
-  const [respCorrect, setRespCorrect] = useState(activity.respCorrect);
   const [image, setImage] = useState(activity.image);
-  
+  const [status, setStatus] = useState(activity.status);
   
   const [isReadOnly, setReadOnly] = useState(true);
-  
+
   return(
-    <tr id="rows" className="tr" padding="checkbox">
+    <tr className="tr">
       <td>
-        <input type="checkbox" />
+        <Preview
+          src={image}
+          id='image'
+          readOnly={isReadOnly}
+        />  
       </td>
-      <td className="fit-content">{activity.id}</td>
-      <td className="fit-content"> {kid_id}</td>
+      
+      <td>
+        <Input
+          id="name"
+          className="input"
+          type="text"
+          defaultValue={name}
+          onChange={(e) => setName(e.target.value)}
+          readOnly={isReadOnly}
+        />
+      </td>
 
       <td>
-        <input
+        <Input
           id="emotion"
           className="input"
           type="text"
@@ -34,84 +52,54 @@ function ActivityList({ activity, updateActivity, deleteActivity }){
           readOnly={isReadOnly}
         />
       </td>
+
       <td>
-        <input
-          id="response1"
+        <Input
+          id="status"
           className="input"
           type="text"
-          defaultValue={response1}
-          onChange={(e) => setResponse1(e.target.value)}
+          defaultValue={status}
+          onChange={(e) => setStatus(e.target.value)}
           readOnly={isReadOnly}
         />
       </td>
 
       <td>
-        <input
-          id="response2"
-          className="input"
-          type="text"
-          defaultValue={response2}
-          onChange={(e) => setResponse2(e.target.value)}
-          readOnly={isReadOnly}
-        />
+          <div className="result" fit-content='true'>
+              <button
+                  className="btn btn-sm btn-info d-inline-block mr-1"
+                  onClick={(e) =>{e.preventDefault()}}
+              >
+                  <i className="fas fa-list-ol"></i>
+              </button>
+              <div className="resultInfo">
+                resposta1: {response1} <br/>
+                resposta2: {response2} <br/>
+                resposta3: {response3}
+              </div>
+          </div>
+        
+      </td>
+      
+      <td>
+        {result && (
+          <div className="result" fit-content='true'>
+              <button
+                  className="btn btn-sm btn-warning d-inline-block mr-1"
+                  onClick={(e) =>{e.preventDefault()}}
+              >
+                  <i className="fas fa-list"></i>
+              </button>
+              <div className="resultInfo">
+                tentativas: {result.tries} <br/>
+                resposta: {result.response} <br/>
+                tempo: {result.time}
+              </div>
+          </div>
+        )}
       </td>
 
-      <td>
-        <input
-          id="response3"
-          className="input"
-          type="text"
-          defaultValue={response3}
-          onChange={(e) => setResponse3(e.target.value)}
-          readOnly={isReadOnly}
-        />
-      </td>
-
-      <td>
-        <input
-          id="respCorrect"
-          className="input"
-          type="text"
-          defaultValue={respCorrect}
-          onChange={(e) => setRespCorrect(e.target.value)}
-          readOnly={isReadOnly}
-        />
-      </td>
-
-      <td>
-        <Preview
-          src={image}
-          id='image'
-          //onChange={(e) => setPhoto(e.target.files[0])}
-          readOnly={isReadOnly}
-        />  
-      </td>
-
-      <td>
-        <button
-          className="btn btn-sm btn-success d-inline-block mr-1"
-          onClick={(e) => {
-            e.preventDefault(); 
-            setReadOnly(false);
-          }}
-        >
-          <i className="fas fa-edit"></i>
-        </button>
-        <button
-          className="btn btn-sm btn-success d-inline-block mr-1"
-          onClick={(e) => {
-            e.preventDefault();
-            updateActivity({
-              id: activity.id,
-              name,
-              type,
-              emotion
-            });
-            setReadOnly(true);
-          }}
-        >
-          <i className="fas fa-save"></i>
-        </button>
+      <td>        
         <button
           className="btn btn-sm btn-danger d-inline-block"
           onClick={(e) => {
@@ -122,7 +110,7 @@ function ActivityList({ activity, updateActivity, deleteActivity }){
           <i className="fas fa-trash-alt"></i>
         </button>
       </td>
-    </tr>   
+    </tr>
   )
 }
 

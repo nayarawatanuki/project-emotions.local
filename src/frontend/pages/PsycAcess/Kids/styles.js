@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const App = styled.div`
     height: auto 100%;
@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-    width: 81%;
+    width: 87%;
     height: auto 100%;
     margin: auto;
     display: center;
