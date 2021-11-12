@@ -38,15 +38,3 @@ export const Table = styled.table`
     display: auto;
     text-align: center;
 `;
-
-export const Label = styled.label`
-    @include scoop-corners(20px, #e673ae);
-    border: 2px solid red;
-    border-radius: 15%;
-    width: 100px;
-    height: 30px;
-    float: auto;
-    resize: auto;
-    display: auto;
-    text-align: center;
-`;
