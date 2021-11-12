@@ -9,6 +9,7 @@ const routesAdmin = require('./routes/Admins');
 const routesKid = require('./routes/Kids');
 const routesTask = require('./routes/Tasks');
 const routesTaskView = require('./routes/TaskView');
+const routesTaskReward = require('./routes/Rewards');
 const routesTaskResult = require('./routes/Results');
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(routesAdmin);
 app.use(routesKid);
 app.use(routesTask);
 app.use(routesTaskView);
+app.use(routesTaskReward);
 app.use(routesTaskResult);
 
 app.listen(3000, () => {

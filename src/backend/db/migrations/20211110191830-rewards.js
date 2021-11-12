@@ -2,19 +2,12 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('kid_tasks', { 
+    await queryInterface.createTable('rewards', { 
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
-      },
-      kid_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: { model: 'kids', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       task_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +15,15 @@ module.exports = {
         references: { model: 'tasks', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      },
+      photo: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      message: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -35,6 +37,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('kid_tasks');
+    await queryInterface.dropTable('rewards');
   }
 };
