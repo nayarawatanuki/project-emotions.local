@@ -11,14 +11,14 @@ import api from '../../../services/api/index';
 import Upload from '../../../components/Upload';
 import FileList from '../../../components/mappings/FileList';
 
-class addImgEmotion extends Component {
+class addTask3 extends Component {
   state = {
     uploadedFilePreview: [],
     uploadedFile: undefined
   };
 
   handleUpload = image => {
-    const addedFiles = image.map(image => ({
+    const addedFile = image.map(image => ({
       image,
       id: uniqueId(),
       name: image.name,
@@ -32,8 +32,8 @@ class addImgEmotion extends Component {
 
     //mostra preview
     this.setState({
-      uploadedFilePreview: addedFiles,
-      uploadedFile: addedFiles[0]
+      uploadedFilePreview: addedFile,
+      uploadedFile: addedFile[0]
     });
   }
 
@@ -68,7 +68,7 @@ class addImgEmotion extends Component {
       console.log(key[0] + ': ' + key[1]);
     }
 
-    api.post('/kids/:kid_id/createdTask', data)
+    api.post(`/kids/${kid_id}/createdTask`, data)
   }      
 
   render() {
@@ -140,4 +140,4 @@ class addImgEmotion extends Component {
   }
 }
 
-export default addImgEmotion;
+export default addTask3;

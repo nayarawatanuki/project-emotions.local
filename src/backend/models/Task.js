@@ -17,6 +17,7 @@ class Task extends Model {
 
     static associate(models) {
         this.belongsTo(models.Kid, { foreignKey: 'kid_id', as: 'kids'});
+        this.hasOne(models.Reward, { foreignKey: 'task_id', as: 'rewards'});
         this.hasOne(models.Result, { foreignKey: 'task_id', as: 'results'});
     }
 }
