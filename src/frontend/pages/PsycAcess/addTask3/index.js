@@ -1,23 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
 
 import GlobalStyle from '../../../global/styles';
 import { App, Container, Content } from './styles.js';
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import api from '../../../services/api/index';
 import Upload from '../../../components/Upload';
 import FileList from '../../../components/mappings/FileList';
+import { useKidContext } from "../../../context/kidContext";
+import { useTaskContext } from "../../../context/taskContext";
 
-class addTask3 extends Component {
-  state = {
-    uploadedFilePreview: [],
-    uploadedFile: undefined
-  };
+function addTask3 () {
 
-  handleUpload = image => {
+  const [uploadedFilePreview, setUploadedFilePreview] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState();
+
+  const [rewardFilePreview, setRewardFilePreview] = useState([]);
+  const [rewardFile, setRewardFile] = useState();
+
+  const {kid_id} = useKidContext();
+
+  var {task} = useState([]);
+  const [mess, setMess] = useState([]);
+
+  const history = useHistory();
+
+  function handleUpload(image) {
     const addedFile = image.map(image => ({
       image,
       id: uniqueId(),
@@ -31,26 +42,21 @@ class addTask3 extends Component {
     }));
 
     //mostra preview
-    this.setState({
-      uploadedFilePreview: addedFile,
-      uploadedFile: addedFile[0]
-    });
+    setUploadedFilePreview(addedFile);
+    setUploadedFile(addedFile[0]);
+    
   }
 
-  updateFile = (id, data) => {
-    this.setState({ 
-      uploadedFilePreview: this.state.uploadedFilePreview.map(uploadedFile => { 
+  function updateFile(id, data) {
+    setUploadedFilePreview(uploadedFilePreview.map(uploadedFile => { 
         return id === uploadedFile.id 
           ? { ...uploadedFile, ...data } 
           : uploadedFile;
-      })
-    });
+      }))
   }
 
-  createdActivity = () => {
-    const query = this.props.location.search;
-    const kid_id = query.replace("?", "")
-    console.log(query);
+  async function createdActivity() {
+    
 
     var data = new FormData();
 
@@ -61,18 +67,76 @@ class addTask3 extends Component {
     data.append('response1', document.getElementById('response1').value);
     data.append('response2', document.getElementById('response2').value);
     data.append('response3', document.getElementById('response3').value);
-    data.append('image', this.state.uploadedFile.image, this.state.uploadedFile.name);
+    data.append('image', uploadedFile.image, uploadedFile.name);
     data.append('status', 'Não realizada');
 
     for (var key of data.entries()) {
       console.log(key[0] + ': ' + key[1]);
     }
 
-    api.post(`/kids/${kid_id}/createdTask`, data)
-  }      
 
-  render() {
-    const { uploadedFilePreview } = this.state;
+    await(api.post(`/kids/${kid_id}/createdTask`, data)
+    .then((response) => {
+      task = response.data.id;
+    }))
+    console.log(task);
+  }
+  
+  async function handleReward(image) {
+    const addedFile = image.map(image => ({
+      image,
+      id: uniqueId(),
+      name: image.name,
+      readableSize: filesize(image.size),
+      preview: URL.createObjectURL(image),
+      Progress: 0,
+      uploaded: false,
+      error: false,
+      url: image.url,
+    }));
+
+    //mostra preview
+    setRewardFilePreview(addedFile);
+    setRewardFile(addedFile[0]);
+  }
+
+  function updateReward(id, data) {
+    setRewardFilePreview(rewardFilePreview.map(uploadedFile => { 
+        return id === uploadedFile.id 
+          ? { ...uploadedFile, ...data } 
+          : uploadedFile;
+      })
+    );
+  }
+
+  async function createdReward() {
+
+    var data = new FormData();
+
+    data.append('task_id', task);
+    
+    data.append('photo', rewardFile.image, rewardFile.name);
+    data.append('message', mess);
+
+    for (var key of data.entries()) {
+      console.log(key[0] + ': ' + key[1]);
+    }
+
+    api.post(`/tasks/${16}/createdReward`, data)
+    .then((response) => {
+      console.log(response.data)
+    })
+  }
+
+  async function sendTask() {
+    await createdActivity()
+    .then(() => {
+      createdReward();
+      history.push('/Kids');
+    })
+    
+  }
+
     return (
       <App>
         <nav className="navbar navbar-light bg-light">
@@ -100,7 +164,7 @@ class addTask3 extends Component {
               </div>
               <div className="form-group" >
                 <label htmlFor="image">Escolha a imagem</label>
-                <Upload onUpload={this.handleUpload} />
+                <Upload onUpload={handleUpload} />
                 
                 { !!uploadedFilePreview.length && (
                   <FileList file={uploadedFilePreview} />
@@ -122,13 +186,27 @@ class addTask3 extends Component {
                   <input type="text" id="response3" name="response3" className="form-control" placeholder="Emoção 3" />
               </div>
 
+              <div className="form-group" >
+                <label htmlFor="photo">Escolha a recompensa</label>
+                <Upload onUpload={handleReward} />
+                
+                { !!rewardFilePreview.length && (
+                  <FileList file={rewardFilePreview} />
+                )}
+              </div>
+
+              <div className="form-group">
+                  <label htmlFor="message">Mensagem de recompensa</label>
+                  <input type="text" id="message" name="message" className="form-control" onChange={(e) => setMess(e.target.value)}/>
+              </div>
+
               <div>
                 <Link to="/Kids">
                   <button className="button button-danger">Cancelar</button>
                 </Link>
 
                 <Link to="/Kids">
-                  <button onClick={this.createdActivity} className="button button-success">Criar atividade</button>
+                  <button onClick={sendTask} className="button button-success">Criar atividade</button>
                 </Link>
               </div>
             </form>
@@ -138,6 +216,6 @@ class addTask3 extends Component {
       </App>
     )
   }
-}
+
 
 export default addTask3;

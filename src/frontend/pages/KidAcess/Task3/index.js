@@ -2,9 +2,10 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import swal from '@sweetalert/with-react'
 import api from '../../../services/api';
 
-import './style.css';
+import '../../../global/styles/fireworks/style.css';
+import '../../../global/styles/instruction/style.css';
 import GlobalStyle from '../../../global/styles';
-import { App, Container, Content } from './styles';
+import { App, Container, Content, Label } from './styles';
 
 import { Link, useHistory } from 'react-router-dom';
 import { useKidContext } from '../../../context/kidContext';
@@ -14,7 +15,8 @@ function Task3() {
   const {kid_name} = useKidContext();
   const {task_id} = useTaskContext();
   const [task, setTask] = useState([]);
-
+  const [reward, setReward] = useState([]);
+  
   const [time, setTime] = useState(0);
   const [response, setResponse] = useState();
   const [tries, setTries] = useState(1);
@@ -30,7 +32,17 @@ function Task3() {
     }).catch((error) => {
         console.error('error', error) 
     });
-  }, []);
+  }, [kid_name, task_id]);
+
+  useLayoutEffect(() => {
+    api.get(`/tasks/${task_id}/listRewards`)
+    .then((response) => {
+      setReward(response.data);
+      console.log(reward);
+    }).catch((error) => {
+        console.error('error', error) 
+    });
+  }, [task_id]);
 
   useEffect(() => {
     let interval = null;
@@ -43,6 +55,24 @@ function Task3() {
     }
     return () => clearInterval(interval);
   }, [isActive, time]);
+
+  function openReward() {
+    reward.map((reward) => {
+      return (
+        swal({
+          content: (
+            <div className="pyro" >
+          
+              <div className="before"></div>
+              <div className="after"></div>
+            </div>
+          ),
+          title: reward.message, 
+          icon: reward.photo
+        })
+      )
+    })
+  }
 
   async function allowDrop(e) {
     await e.preventDefault();
@@ -108,8 +138,10 @@ function Task3() {
         <Link to="/KidAcess">
           <button className="button button-danger">SAIR</button>
         </Link>
-        <h4 className="navbar navbar-light float-center">Associando palavra a imagem</h4>
-        <h1>{time} time</h1>
+        <h4 className="instruction">
+          Associando palavra a imagem {'>>'} <br/>
+        </h4>
+        <h1></h1>     
       </nav>
       <Container>
         <Content>
@@ -122,28 +154,20 @@ function Task3() {
                     onDrop={()=> {                        
                       if( response === task.emotion ) {                        
                         stopTime();
-                        swal({
-                          content: (
-                            <div className="pyro" >
-                          
-                              <div className="before"></div>
-                              <div className="after"></div>
-                            </div>
-                          ),
-                          title: 'PARABÉNS!!!', 
-                          icon: "https://i.pinimg.com/originals/63/9f/52/639f523a4803c6f00f51401b3158d452.gif"
-                        })
-                        .then(() => {
-                          sendTask();
-                        })
+                        openReward();
+                        sendTask();
                       } else {
                         setTries(tries+1);
                         console.log('tentativas: ', tries);
                         stopTime();
-                        swal({title: 'não foi desta fez', icon: "https://w7.pngwing.com/pngs/108/553/png-transparent-smiley-sadness-emoticon-crying-smiley-faces-face-smiley-sticker.png"})
-                        .then(() => {
-                          setIsActive(true);
-                        })
+
+                        if(task.response1 === task.emotion){
+                          document.getElementById('emotion1').style.boxShadow = '0 0 1em green';
+                        } else if(task.response2 === task.emotion) {
+                          document.getElementById('emotion2').style.boxShadow = '0 0 1em green';
+                        } else if(task.response3 === task.emotion) {
+                          document.getElementById('emotion3').style.boxShadow = '0 0 1em green';
+                        }
                       }
                     }}
                     align="center"  
@@ -152,26 +176,26 @@ function Task3() {
                 </div>
 
                 <div className="row" style={{marginTop: '5%', justifyContent: 'center'}}>
-                  <label id="emotion1" name="emotion1" style={{marginRight: '4%'}}
+                  <Label id="emotion1" name="emotion1" style={{marginRight: '4%', color: '#fff', border: '5px double #ae8625', background: '-webkit-gradient(linear, left top, center bottom, from(#ae8625), to(#e6bc53)'}}
                     value={task.response1}
                     draggable={true} 
                     onDragStart={(e)=> {drag(e); setResponse(task.response1)}}
                     >{task.response1}
-                  </label>
+                  </Label>
 
-                  <label id="emotion2" name="emotion2" style={{marginRight: '4%'}}
+                  <Label id="emotion2" name="emotion2" style={{marginRight: '4%', border: '5px double #ae8625', background: '-webkit-gradient(linear, left top, center top, from(#ae8625), to(#e6bc53)'}}
                     value={task.response2} 
                     draggable={true} 
                     onDragStart={(e)=> {drag(e); setResponse(task.response2)}}
                     >{task.response2}
-                  </label>
+                  </Label>
 
-                  <label id="emotion3" name="emotion3" 
+                  <Label id="emotion3" name="emotion3" style={{border: '5px double #ae8625'}}
                     value={task.response3}
                     draggable={true} 
                     onDragStart={(e)=> {drag(e); setResponse(task.response3)}}
                     >{task.response3}
-                  </label>
+                  </Label>
                 </div>
               </form>
             )
@@ -199,7 +223,6 @@ function Task3() {
                     setIsActive(true);
                   }
                 });
-
                 stopTime();
                 console.log('time: ', time);
               }}

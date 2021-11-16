@@ -40,9 +40,7 @@ export const Table = styled.table`
 `;
 
 export const Label = styled.label`
-    @include scoop-corners(20px, #e673ae);
-    border: 2px solid red;
-    border-radius: 15%;
+    border-radius: 17%;
     width: 100px;
     height: 30px;
     float: auto;

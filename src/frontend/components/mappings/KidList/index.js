@@ -117,7 +117,7 @@ function KidList({ kid, updateKid, deleteKid }){
               id="vincular"
               className="btn btn-sm btn-info d-inline-block mr-1"
               onClick={() => {
-                setId(kid.id)
+                saveId(kid.id)
               }}
             >
               <i className="fas fa-plus"></i>

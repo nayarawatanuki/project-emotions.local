@@ -59,7 +59,7 @@ function KidAcess() {
 
                         <div className="form-group">
                             <label htmlFor="code">Senha</label>
-                            <input type="text" 
+                            <input type="password" 
                                 id="code" 
                                 name="code" 
                                 className="form-control" 

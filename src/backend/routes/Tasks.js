@@ -24,8 +24,8 @@ routes.post('/kids/:kid_id/createdTask', multer(multerConfig).single("image"), (
     const task = Task.create(
         { kid_id, name, emotion, response1, response2, response3, image, status }
     ).then((response) => {
+        console.log('id', response.id);
         return res.json(response);
-        
     }).catch(() => {
         console.log(err);
             return res.status(400).json({
