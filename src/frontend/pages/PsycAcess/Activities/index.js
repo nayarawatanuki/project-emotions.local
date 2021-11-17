@@ -11,7 +11,7 @@ import ActivityList from '../../../components/PsycAcess/ActivityList';
 function TasksKid() {
 
     const [list, setList] = useState([]);
-    const {kid_id, kid_name, kid_photo} = useKidContext();
+    const {kid_id, kid_name, kid_photo, saveId} = useKidContext();
 
     console.log({kid_id, kid_name})
 
@@ -54,8 +54,8 @@ function TasksKid() {
                     "nome": emotion
                 }));
                 console.log("Atividade atualizada!");
-                window.alert('Atividade atualizada!');
-                document.getElementById("rows").style.backgroundColor = "#fff";
+                swal('Atividade atualizada!');
+                //document.getElementById("rows").style.backgroundColor = "#fff";
             });
         }else{
             window.alert('Prencha todos os campos')
@@ -63,19 +63,28 @@ function TasksKid() {
     }
 
     async function deleteActivity(id){
-        console.log("id delete", id);
+        swal({
+            title: 'Tem certeza que deseja deletar a tarefa?',
+            text: 'Uma vez deletada, não poderá recuperá-la',
+            icon: 'warning',
+            buttons: ["Não", "Deletar"]
+          }).then((willDeletar) => {
+            if(willDeletar) {
+                console.log("id delete", id);
 
-        await api.delete(`/deletedTask/${id}`)
-        .then((response) => {
-            console.log(response.data);
-            window.alert("Atividade apagada!");
+                api.delete(`/deletedTask/${id}`)
+                .then((response) => {
+                    console.log(response.data);
+                    swal("Atividade apagada!");
 
-            const newList = list.filter((activity) => activity.id !== id);
-            setList(newList);
-        })
-        .catch((error)=>{
-            console.log(error);
-        });
+                    const newList = list.filter((activity) => activity.id !== id);
+                    setList(newList);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                });
+            }
+          })
     }
   
     return (
@@ -94,10 +103,10 @@ function TasksKid() {
                             <img src={kid_photo} alt="Person" />
                             {kid_name}
                         </div>
-                        <Link to="/addActivity">
-                            <button type="submit" className="btn btn-outline-info d-inline-block" width="auto">
-                                <i className="fas fa-plus"></i>
-                            </button>
+                        <Link to={{ pathname: "/addTask3", search:`${kid_id}` }}>
+                            <button  className="btn btn-outline-info" onClick={() => {
+                                saveId(kid_id)
+                            }}>+</button>
                         </Link>
 
                         <Table className= "table table-responsive table-selectable" >
@@ -106,8 +115,8 @@ function TasksKid() {
                                     <th>imagem</th>
                                     <th>nome</th>
                                     <th>emoção</th>
-                                    <th>status</th>
-                                    <th>opções de resposta</th>
+                                    <th>situação</th>
+                                    <th>alternativas de resposta</th>
                                     <th>resultado</th>
                                     <th> </th>
                                 </tr>

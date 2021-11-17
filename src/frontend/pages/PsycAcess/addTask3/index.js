@@ -140,7 +140,7 @@ function addTask3 () {
     return (
       <App>
         <nav className="navbar navbar-light bg-light">
-          <Link to="/">
+          <Link to="/Kids">
               <button type="button" className="button button-info">Voltar</button>
           </Link>
           <h5 className="navbar-brand float-center">Adicionando atividade</h5>
@@ -159,7 +159,7 @@ function addTask3 () {
                 <input type="text" id="name" name="name" className="form-control" placeholder="Nome da Atividade" />
               </div>
               <div className="form-group" >
-                <label htmlFor="emotion">Emoção</label>
+                <label htmlFor="emotion">Emoção (resposta correta)</label>
                 <input type="text" id="emotion" name="emotion" className="form-control" placeholder="Qual será a emoção trabalhada?" />
               </div>
               <div className="form-group" >
@@ -170,24 +170,26 @@ function addTask3 () {
                   <FileList file={uploadedFilePreview} />
                 )}
               </div>
+
+              <p style={{fontWeight: 'bold'}}>Entre as alternativas abaixo, insira UMA correta:</p>
               
               <div className="form-group">
-                  <label htmlFor="response1">Resposta 1</label>
-                  <input type="text" id="response1" name="response1" className="form-control" placeholder="Emoção 1" />
+                  <label htmlFor="response1">Alternativa 1</label>
+                  <input type="text" id="response1" name="response1" className="form-control" placeholder="Emoção Alternativa 1" />
               </div>  
 
               <div className="form-group">
-                  <label htmlFor="response2">Resposta 2</label>
-                  <input type="text" id="response2" name="response2" className="form-control" placeholder="Emoção 2" />
+                  <label htmlFor="response2">Alternativa 2</label>
+                  <input type="text" id="response2" name="response2" className="form-control" placeholder="Emoção Alternativa 2" />
               </div>
 
               <div className="form-group">
-                  <label htmlFor="response3">Resposta 3</label>
-                  <input type="text" id="response3" name="response3" className="form-control" placeholder="Emoção 3" />
+                  <label htmlFor="response3">Alternativa 3</label>
+                  <input type="text" id="response3" name="response3" className="form-control" placeholder="Emoção Alternativa 3" />
               </div>
 
               <div className="form-group" >
-                <label htmlFor="photo">Escolha a recompensa</label>
+                <label htmlFor="photo">Escolha a imagem da mensagem de resposta certa</label>
                 <Upload onUpload={handleReward} />
                 
                 { !!rewardFilePreview.length && (
@@ -196,7 +198,7 @@ function addTask3 () {
               </div>
 
               <div className="form-group">
-                  <label htmlFor="message">Mensagem de recompensa</label>
+                  <label htmlFor="message">Mensagem de resposta certa</label>
                   <input type="text" id="message" name="message" className="form-control" onChange={(e) => setMess(e.target.value)}/>
               </div>
 

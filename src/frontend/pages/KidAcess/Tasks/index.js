@@ -39,10 +39,8 @@ function Tasks() {
     return (
         <App>
             <nav className="navbar navbar-light bg-light">
-                <Link to="/">
-                    <button type="button" className="btn btn-primary">Voltar</button>
-                </Link>
-                <h5 className="navbar-brand float-center">Crianças</h5>
+                <h1></h1>
+                <h5 className="navbar-brand float-center">Atividades da {kid_name}</h5>
                 <h1> </h1>
             </nav>
 

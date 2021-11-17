@@ -8,6 +8,6 @@
 
 .instruction:hover:after {
     font-size: 15px;
-    content: "Arraste a palavra certa na imagem ";
+    content: "Arraste o botão com a emoção correspondente para a imagem ";
     position: relative;
 }

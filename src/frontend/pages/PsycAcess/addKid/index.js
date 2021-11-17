@@ -74,7 +74,7 @@ class addKid extends Component {
     return (
       <App>
         <nav className="navbar navbar-light bg-light">
-          <Link to="/">
+          <Link to="/Kids">
               <button type="button" className="button button-info">Voltar</button>
           </Link>
           <h5 className="navbar-brand float-center">Adicionando criança</h5>
@@ -99,8 +99,8 @@ class addKid extends Component {
               <div className="form-infoKid" style={{marginTop: "4%"}}>
 
                 <div className="form-group">
-                  <label htmlFor="user"> User </label>
-                  <input type="text" id="user" name="user" className="form-control" placeholder="Digite o nome da criança" />
+                  <label htmlFor="user"> Usuário </label>
+                  <input type="text" id="user" name="user" className="form-control" placeholder="Digite o usuário" />
                 </div>
 
                 <div className="form-group" >
@@ -124,8 +124,8 @@ class addKid extends Component {
                     </select>
                   </div>     
                   <div className="form-group col-md-6">
-                    <label htmlFor="birth">Data de nasc.</label>
-                    <input type="text" id="birth" name="birth" className="form-control" />
+                    <label htmlFor="birth">Data de nascimento</label>
+                    <input type="date" id="birth" name="birth" className="form-control" />
                   </div>
                 </div>    
 
@@ -135,8 +135,8 @@ class addKid extends Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="note">Observações</label>
-                  <textarea type="text" id="note" name="note" className="form-control" placeholder="Detalhar criança" /> 
+                  <label htmlFor="note">Observações da criança</label>
+                  <textarea type="text" id="note" name="note" className="form-control" placeholder="Observações sobre a criança" /> 
                 </div>
 
                 <div className="form-group" >

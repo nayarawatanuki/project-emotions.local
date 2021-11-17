@@ -47,19 +47,19 @@ function KidAcess() {
                         <h1>Vamos começar?</h1>
 
                         <div className="form-group">
-                            <label htmlFor="user">User</label>
+                            <label htmlFor="user">Usuário</label>
                             <input type="text" 
                                 id="user" 
                                 name="user" 
                                 className="form-control" 
-                                placeholder="usuario" 
+                                placeholder="usuário" 
                                 onChange={(e) => setUser(e.target.value)}
                             />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="code">Senha</label>
-                            <input type="password" 
+                            <input type="number" 
                                 id="code" 
                                 name="code" 
                                 className="form-control" 

@@ -91,57 +91,21 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const {
-            id
-        } = req.params;
-        try {
-            const kid = Kid.findByPk(id);
-            if (!kid) {
-                res.json({
-                    error: true
-                });
-            } else {
-                Kid.beforeDestroy(async (kid) => {
-                        
-                        if (process.env.STORAGE_TYPE === "s3") {
-                            try {
-                                return s3.deleteObject({
+        const { id } = req.params;
 
-                                    Bucket: 'kidphoto',
-                                    Key: kid.key
-                                  })
-                                  .promise()
-                                  .then(() => {
-                                    console.log("Success. Object deleted.", data);
-                                    return data; // For unit tests.
-                                  })
-                                  .catch(response => {
-                                    console.log(response.status);
-                                  });
-                                
-                            } catch (err) {
-                                console.log("Error", err);
-                            }
-                        } else {
-                            try {
-                                return promisify(fs.unlink)(
-                                    path.resolve(__dirname, "..", "..", "tmp", "uploads", kid.key)
-                                )
-                            } catch {
-                                console.log(error.message);
-                                return res.json({
-                                    error: true
-                                });
-                            }
-                        }
-                    }),
-                    (await kid).destroy;
-            }
-        } catch {
-            console.log(error.message);
-            res.json({
-                error: true
+        console.log('controller delete kid', req.params)
+        try {
+            const kid = await Kid.destroy({ 
+                where: {
+                    id: id
+                } 
             });
+    
+            return res.json(kid);
+        }catch(error){
+            console.log(error);
+                res.json({error: true});
         }
+        
     }
 }

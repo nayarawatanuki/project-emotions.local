@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
+import swal from '@sweetalert/with-react'
 
 import GlobalStyle from '../../../global/styles';
 import { App, Container, Content, Table } from './styles.js';
@@ -45,26 +46,34 @@ function Kids() {
     }
 
     async function deleteKid(id){
-        console.log("id delete", id);
-        await api.delete(`/deletedKid/${id}`)
-        .then((response) => {
-            console.log(response.data);
-            window.alert("Criança apagada!");
-            
-            const newList = kids.filter((kid) => kid.id !== id);
-            setKids(newList);
-        })
-        .catch((error)=>{
-            console.log(error);
-        });
+        swal({
+            title: 'Tem certeza que deseja deletar a criança?',
+            text: 'Uma vez deletada, não poderá recuperá-la',
+            icon: 'warning',
+            buttons: ["Não", "Deletar"]
+          }).then((willDeletar) => {
+            if(willDeletar) {
+                console.log("id delete", id);
+                api.delete(`/deletedKid/${id}`)
+                .then((response) => {
+                    console.log(response.data);
+                    swal("Criança apagada!");
+                    
+                    const newList = kids.filter((kid) => kid.id !== id);
+                    setKids(newList);
+                })
+                .catch((error)=>{
+                    console.log(error);
+                });
+            }
+          });
+        
     }
 
     return (
         <App>
             <nav className="navbar navbar-light bg-light">
-                <Link to="/">
-                    <button type="button" className="button button-info">Voltar</button>
-                </Link>
+                <h1></h1>
                 <h5 className="navbar-brand float-center">Crianças</h5>
                 <h1> </h1>
             </nav>
@@ -84,13 +93,13 @@ function Kids() {
                                 <tr>
                                     <th>foto</th>
                                     <th>tratamento</th>
-                                    <th>user</th>
-                                    <th>codigo</th>
+                                    <th>usuário</th>
+                                    <th>código</th>
                                     <th>nome</th>
                                     <th>grau</th>
                                     <th>nascimento</th>
-                                    <th>responsavel</th>
-                                    <th>obs</th>
+                                    <th>responsável</th>
+                                    <th>observações</th>
                                     <th>atividades</th>
                                     <th></th>
                                 </tr>
