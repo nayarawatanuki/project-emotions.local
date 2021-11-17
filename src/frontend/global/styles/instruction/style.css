@@ -1,0 +1,13 @@
+.instruction:hover {
+    cursor: pointer;
+    position: sticky;
+    width: auto;
+    display: inline-block;
+    align-items: center;
+}
+
+.instruction:hover:after {
+    font-size: 15px;
+    content: "Arraste o botão com a emoção correspondente para a imagem ";
+    position: relative;
+}
