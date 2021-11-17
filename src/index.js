@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import App from './App/App';
+import App from './App';
 
 import Home from './frontend/pages/Home/index';
 
