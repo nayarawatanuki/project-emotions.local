@@ -1,0 +1,16 @@
+{
+  "name": "project-emotions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TCC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "project-emotions"
+  },
+  "author": "nayarawatanuki",
+  "license": "ISC"
+}
