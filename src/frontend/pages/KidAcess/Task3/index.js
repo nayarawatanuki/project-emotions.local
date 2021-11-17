@@ -135,9 +135,9 @@ function Task3() {
   return (
     <App>
       <nav className="navbar navbar-light bg-light">
-        <Link to="/KidAcess">
-          <button className="button button-danger">SAIR</button>
-        </Link>
+        <div>
+          <button className="button button-danger" onClick={() => history.push('/Tasks')}>SAIR</button>
+        </div>
         <h4 className="instruction">
           Associando palavra a imagem {'>>'} <br/>
         </h4>
